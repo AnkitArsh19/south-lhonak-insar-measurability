@@ -1,0 +1,857 @@
+/* ==========================================================================
+   SOUTH LHONAK GLOF // SAR MEASURABILITY ATLAS
+   Design System: Swiss Modernism 2.0 x Satellite Mission Telemetry
+   Zero Generic AI Clichés (No Purple Glows, No Rounded Blobs)
+   ========================================================================== */
+
+:root {
+  /* Cryospheric & Geological Palette */
+  --bg-obsidian: #080B0F;
+  --bg-panel: #10151E;
+  --bg-surface: #161D29;
+  --bg-surface-elevated: #1F2837;
+
+  /* Structural Grid & Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-active: rgba(0, 240, 255, 0.4);
+
+  /* Mission Telemetry & Phosphor Accents */
+  --radar-cyan: #00F0FF;
+  --radar-cyan-muted: rgba(0, 240, 255, 0.12);
+  --radar-emerald: #00E599;
+  --contour-amber: #F59E0B;
+  --flood-coral: #FF4757;
+  --flood-coral-muted: rgba(255, 71, 87, 0.15);
+
+  /* Typography Colors */
+  --text-pure: #FFFFFF;
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  /* Font Stacks */
+  --font-display: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Base Reset & Smooth Scrolling */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-obsidian);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+  overflow-x: hidden;
+}
+
+/* Typography Utility */
+.font-mono { font-family: var(--font-mono); }
+.text-cyan { color: var(--radar-cyan); }
+.text-amber { color: var(--contour-amber); }
+.text-coral { color: var(--flood-coral); }
+.text-emerald { color: var(--radar-emerald); }
+.text-zinc { color: var(--text-secondary); }
+
+/* Top HUD Header */
+.hud-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8, 11, 15, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hud-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.hud-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  background: rgba(0, 229, 153, 0.12);
+  color: var(--radar-emerald);
+  border: 1px solid rgba(0, 229, 153, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hud-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--radar-emerald);
+  box-shadow: 0 0 6px var(--radar-emerald);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.hud-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-project-code {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.hud-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-pure);
+}
+
+.hud-telemetry {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.telem-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.telem-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+}
+
+.telem-value {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.telem-success {
+  color: var(--radar-emerald);
+}
+
+/* Sticky Sub Navigation */
+.sub-nav {
+  position: sticky;
+  top: 53px;
+  z-index: 90;
+  background: rgba(16, 21, 30, 0.95);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 2rem;
+}
+
+.nav-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.75rem 0;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--radar-cyan);
+  border-bottom-color: var(--radar-cyan);
+}
+
+/* Page Layout */
+.page-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+.section {
+  margin-bottom: 6rem;
+  scroll-margin-top: 120px;
+}
+
+.section-tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--radar-cyan);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 800px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+/* Tactile Tech Frame */
+.tech-frame {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.frame-tag {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.frame-caption {
+  padding: 0.6rem 1rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+/* 01. Hero Section */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-pure);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-lead {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.hero-subtext {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.stats-ribbon {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stat-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.stat-caption {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.media-container {
+  overflow: hidden;
+}
+
+.media-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* 02. Event Telemetry Ribbon & Multi-Sensor Viewer */
+.event-telemetry-ribbon {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+}
+
+.event-telem-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.event-telem-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.event-telem-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.multi-sensor-viewer {
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: #000;
+}
+
+
+.chip {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.timestamp {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.split-content-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+.metric-label {
+  color: var(--text-secondary);
+}
+
+/* 03. 3D Radar Simulator Panel */
+.interactive-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 2rem;
+}
+
+.panel-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.toolbar-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.track-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.track-btn {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.track-btn:hover {
+  color: var(--text-pure);
+  border-color: var(--border-strong);
+}
+
+.track-btn.active {
+  background: var(--bg-surface-elevated);
+  color: var(--radar-cyan);
+  border-color: var(--radar-cyan);
+}
+
+.btn-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.track-btn.active .btn-dot {
+  background: var(--radar-cyan);
+  box-shadow: 0 0 6px var(--radar-cyan);
+}
+
+.canvas-wrapper {
+  position: relative;
+  background: #070A0E;
+}
+
+#radarCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.canvas-telemetry {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.6rem 1rem;
+  background: rgba(16, 21, 30, 0.8);
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.info-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  padding: 1.5rem;
+}
+
+.card-chip {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.card-heading {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text-pure);
+  margin-bottom: 0.75rem;
+}
+
+.card-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.card-metric-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.sub-metric {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-secondary);
+}
+
+.card-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* 04. Observability Threshold Controller */
+.threshold-controller {
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.slider-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.slider-val {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.segmented-threshold-switch {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.thresh-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+
+.thresh-btn:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-surface-elevated);
+}
+
+.thresh-btn.active {
+  border-color: var(--radar-cyan);
+  background: rgba(0, 240, 255, 0.08);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+}
+
+.thresh-tag {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-pure);
+}
+
+.thresh-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+
+.coverage-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.coverage-column {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 1.25rem;
+}
+
+.highlight-col {
+  border-color: var(--radar-cyan);
+  background: rgba(0, 240, 255, 0.04);
+}
+
+.col-header {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+}
+
+.progress-bar-wrap {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-panel);
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fill-desc { background: var(--flood-coral); }
+.fill-asc { background: var(--contour-amber); }
+.fill-combined { background: var(--radar-cyan); }
+
+.col-stat {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.col-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* 05. Signal vs Noise Paradox */
+.paradox-comparator {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.gauge-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.gauge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.citation {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.visual-bar-container {
+  width: 100%;
+  height: 44px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.bar-actual-signal {
+  height: 100%;
+  background: var(--radar-emerald);
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  min-width: 90px;
+}
+
+.bar-noise-signal {
+  height: 100%;
+  background: rgba(255, 71, 87, 0.35);
+  border: 1px solid var(--flood-coral);
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.bar-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  white-space: nowrap;
+}
+
+.gauge-explanation {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.paradox-callout {
+  background: rgba(255, 71, 87, 0.08);
+  border: 1px solid rgba(255, 71, 87, 0.4);
+  padding: 1.25rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.callout-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--flood-coral);
+  color: #000;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.callout-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.tech-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-top: 1rem;
+}
+
+.tech-table th {
+  background: var(--bg-surface);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.tech-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.table-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding: 0.75rem 1rem;
+}
+
+/* 06. Operational Mandate Cards */
+.mandate-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.mandate-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.mandate-idx {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--border-strong);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.mandate-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text-pure);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.mandate-body {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Footer */
+.hud-footer {
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-obsidian);
+  padding: 1.5rem 2rem;
+}
+
+.footer-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .interactive-grid { grid-template-columns: 1fr; }
+  .coverage-comparison-grid { grid-template-columns: 1fr; }
+  .mandate-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .hud-telemetry { display: none; }
+}
+
+@media (max-width: 640px) {
+  .page-container { padding: 1.5rem 1rem 4rem; }
+  .hero-headline { font-size: 1.8rem; }
+  .section-title { font-size: 1.6rem; }
+  .stats-ribbon { grid-template-columns: 1fr; }
+  .mandate-cards-grid { grid-template-columns: 1fr; }
+  .footer-container { flex-direction: column; gap: 0.5rem; }
+}

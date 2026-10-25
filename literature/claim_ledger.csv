@@ -13,3 +13,6 @@ CLM011,"NISAR public provisional products from acquisitions beginning 17 June 20
 CLM012,"Mohanty et al. 2026 published in Scientific Reports (NOT Science Advances)",PMC / Springer Nature,Publication metadata,Verified citation,High,,"project_outline.md line 340 incorrectly says Science Advances — MUST FIX",2026-10-22
 CLM013,"Sattar et al. published in Science journal",[UNVERIFIED],TBD,Claimed citation,Low,,"Referenced in project_outline.md line 339; journal venue not independently confirmed",2026-10-22
 CLM014,"An existing 2024 paper already analyses pre-event InSAR deformation at South Lhonak",PAP001 (MDPI 2024),Full paper,Published research,High,,"Means simply applying InSAR to South Lhonak pre-2023 is NOT novel",2026-10-22
+CLM015,"Debris into lake ~11.50 MCM with ~43.21 MCM lake water displaced (total 54.71 MCM)",PAP010 (Patlolla et al. 2025),Main text,Published estimate,High,,"Single-image multi-sensor photogrammetric DEM differencing",2026-10-25
+CLM016,"NDMA mandates InSAR and early warning monitoring across 189 high-risk Himalayan glacial lakes",PAP011 (NDMA 2024),Session 5 Report,Official report,High,,"National disaster management case study based on South Lhonak learnings",2026-10-25
+

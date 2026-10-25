@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>South Lhonak GLOF — Sentinel-1 InSAR Measurability & Observability Atlas</title>
+  <meta name="description" content="Interactive scientific investigation into Sentinel-1 C-band InSAR geometric observability, slope measurability, and atmospheric detection limits during the 2023 South Lhonak Glacial Lake Outburst Flood in Sikkim.">
+  
+  <!-- Bespoke Typography: Space Grotesk (Display), Plus Jakarta Sans (Body), JetBrains Mono (Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Tactical HUD / Mission Telemetry -->
+  <header class="hud-header">
+    <div class="hud-left">
+      <div class="hud-badge pulse-active">MISSION ACTIVE</div>
+      <div class="hud-title-group">
+        <span class="hud-project-code">IIRS/ISRO // CRYOSPHERIC RISK AUDIT</span>
+        <h1 class="hud-title">SOUTH LHONAK LAKE GLOF // SAR MEASURABILITY ATLAS</h1>
+      </div>
+    </div>
+    <div class="hud-telemetry">
+      <div class="telem-item">
+        <span class="telem-label">DATUM / COORDS</span>
+        <span class="telem-value font-mono">27.904°N, 88.201°E</span>
+      </div>
+      <div class="telem-item">
+        <span class="telem-label">ELEVATION</span>
+        <span class="telem-value font-mono">5,200m — 6,800m</span>
+      </div>
+      <div class="telem-item">
+        <span class="telem-label">PHYSICAL SENSORS</span>
+        <span class="telem-value font-mono">SENTINEL-1 C-BAND / RISAT-1A</span>
+      </div>
+      <div class="telem-item">
+        <span class="telem-label">UNIT INVARIANTS</span>
+        <span class="telem-value telem-success font-mono">18/18 VERIFIED</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Quick Navigation Bar -->
+  <nav class="sub-nav">
+    <div class="nav-container">
+      <a href="#overview" class="nav-link active">01. Overview</a>
+      <a href="#breach-comparison" class="nav-link">02. Lake Breach</a>
+      <a href="#radar-mechanics" class="nav-link">03. 3D Radar Physics</a>
+      <a href="#observability-atlas" class="nav-link">04. Observability Atlas</a>
+      <a href="#signal-noise-paradox" class="nav-link">05. The Noise Paradox</a>
+      <a href="#operational-mandate" class="nav-link">06. Early Warning Mandate</a>
+    </div>
+  </nav>
+
+  <main class="page-container">
+
+    <!-- 01. HERO / CONTEXT -->
+    <section id="overview" class="section hero-section">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="section-tag font-mono">RESEARCH QUESTION // RQ-01</div>
+          <h2 class="hero-headline">Which mountain slopes around South Lhonak can Sentinel-1 actually measure — and how small a movement could it detect?</h2>
+          <p class="hero-lead">
+            On the night of <strong>3–4 October 2023</strong>, South Lhonak glacial lake in North Sikkim collapsed, releasing over <strong>54 million cubic meters</strong> of water and debris, destroying the downstream 1,200 MW Teesta-III dam.
+          </p>
+          <p class="hero-subtext">
+            Afterward, unverified claims surfaced asserting that single satellite radar passes detected pre-collapse slope acceleration. We developed an analytical 3D forward projection model to determine the exact geometric and atmospheric limits of spaceborne radar in extreme Himalayan terrain.
+          </p>
+          <div class="stats-ribbon">
+            <div class="stat-card">
+              <span class="stat-number font-mono text-cyan">105 ha</span>
+              <span class="stat-caption">Lake Area Evacuated in Outburst</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number font-mono text-amber">87.0%</span>
+              <span class="stat-caption">Dual-Orbit Scarp Observability (R &ge; 0.3)</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number font-mono text-coral">~22 mm/yr</span>
+              <span class="stat-caption">True Pre-Event Moraine Creep Rate</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number font-mono text-zinc">200–500 mm</span>
+              <span class="stat-caption">Single-Pair InSAR Noise Floor</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="media-container tech-frame">
+            <img src="../results/fig1_radar_geometry_and_sensitivity.png" alt="Radar Geometry and Sensitivity Index Map" class="media-img" id="hero-img">
+            <div class="frame-tag font-mono">FIG 01 // COPERNICUS GLO-30 DEM + LOOK-VECTOR SENSITIVITY</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. LAKE BREACH & DRAINAGE: MULTI-SENSOR VERIFICATION -->
+    <section id="breach-comparison" class="section">
+      <div class="section-header">
+        <div class="section-tag font-mono">02 // MULTI-SENSOR RECONSTRUCTION</div>
+        <h2 class="section-title">The Midnight Catastrophe: 105 Hectares Drained</h2>
+        <p class="section-desc">
+          Multi-sensor satellite observation of the South Lhonak outburst. Comparing pre-event and post-event Sentinel-2 multispectral true-color imagery (26 Sep vs 09 Oct 2023) alongside aligned Sentinel-1 C-band radar coherence and differential line-of-sight displacement.
+        </p>
+      </div>
+
+      <!-- Dedicated Telemetry Ribbon (Unobstructed, outside the image) -->
+      <div class="event-telemetry-ribbon tech-frame font-mono">
+        <div class="event-telem-item">
+          <span class="event-telem-label">EVENT DATE / BASIN</span>
+          <span class="event-telem-val text-coral">03–04 OCT 2023 // TEESTA BASIN</span>
+        </div>
+        <div class="event-telem-item">
+          <span class="event-telem-label">DRAINED LAKE SURFACE</span>
+          <span class="event-telem-val text-cyan">~105 HECTARES (~64% LOSS)</span>
+        </div>
+        <div class="event-telem-item">
+          <span class="event-telem-label">LANDSLIDE DEBRIS INFLOW</span>
+          <span class="event-telem-val">11.50 — 38.31 MCM</span>
+        </div>
+        <div class="event-telem-item">
+          <span class="event-telem-label">WATER DISPLACED / EVACUATED</span>
+          <span class="event-telem-val">43.21 MCM</span>
+        </div>
+        <div class="event-telem-item">
+          <span class="event-telem-label">TOTAL FLOOD SURGE VOLUME</span>
+          <span class="event-telem-val text-amber">54.71 MCM</span>
+        </div>
+        <div class="event-telem-item">
+          <span class="event-telem-label">DOWNSTREAM IMPACT</span>
+          <span class="event-telem-val text-coral">TEESTA-III DAM DESTROYED</span>
+        </div>
+      </div>
+
+      <!-- Unobscured Full-Width Figure 4 -->
+      <div class="multi-sensor-viewer tech-frame">
+        <img src="../results/fig4_optical_sar_pilot_alignment.png" alt="Sentinel-2 and Sentinel-1 Multi-Sensor Drainage Alignment" class="media-img">
+        <div class="frame-caption font-mono">
+          FIGURE 04: (a) PRE-EVENT SENTINEL-2 TRUE COLOR (26 SEP) | (b) POST-EVENT BREACH & DRAINED BASIN (09 OCT) | (c) SENTINEL-1 COHERENCE (&gamma;) | (d) UNWRAPPED LOS DISPLACEMENT
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. 3D RADAR MECHANICS: INTERACTIVE SIMULATOR -->
+    <section id="radar-mechanics" class="section">
+      <div class="section-header">
+        <div class="section-tag font-mono">03 // PHYSICAL RADAR GEOMETRY</div>
+        <h2 class="section-title">Why Single Satellite Radar Passes Suffer Blindness</h2>
+        <p class="section-desc">
+          Synthetic Aperture Radar side-looks at Earth. A slope's visibility depends on the 3D angle between the steep mountain face and the sensor's look vector. 
+          Toggle the orbital tracks below to see the radar illumination change across the failure scarp in real time.
+        </p>
+      </div>
+
+      <div class="interactive-grid">
+        <div class="interactive-panel tech-frame">
+          <div class="panel-toolbar">
+            <span class="toolbar-title font-mono">RADAR TRACK SIMULATOR</span>
+            <div class="track-buttons">
+              <button class="track-btn active" id="btn-track-desc" data-track="desc">
+                <span class="btn-dot"></span> DESCENDING TRACK 048 (LOOKING WEST)
+              </button>
+              <button class="track-btn" id="btn-track-asc" data-track="asc">
+                <span class="btn-dot"></span> ASCENDING TRACK 012 (LOOKING EAST)
+              </button>
+            </div>
+          </div>
+
+          <!-- HTML5 Interactive Radar Canvas -->
+          <div class="canvas-wrapper">
+            <canvas id="radarCanvas" width="760" height="420"></canvas>
+            <div class="canvas-telemetry font-mono" id="canvasTelem">
+              <span>AZIMUTH: <strong id="telemAzimuth">-10.4° (ESE)</strong></span>
+              <span>LOOK ANGLE: <strong id="telemElev">50.8°</strong></span>
+              <span>PROJECTION (P): <strong id="telemProj" class="text-coral">-0.276</strong></span>
+              <span>SENSITIVITY (R): <strong id="telemSens" class="text-cyan">0.309</strong></span>
+            </div>
+          </div>
+          <div class="frame-caption font-mono">
+            DYNAMIC 3D RADAR LOOK-VECTOR PROJECTION: P = d &bull; s | R = |P|
+          </div>
+        </div>
+
+        <div class="info-sidebar">
+          <div class="info-card">
+            <div class="card-chip font-mono text-amber">ASPECT ALIGNMENT</div>
+            <h3 class="card-heading">Scarp Faces South-Southeast</h3>
+            <p class="card-text">
+              The failure scarp has a circular mean aspect of <strong>151.1° (SSE)</strong>, facing within <strong>26.2°</strong> of the nearest southern lake shore.
+            </p>
+            <div class="card-metric-block font-mono">
+              <div class="sub-metric"><span>Mean Scarp Slope:</span> <strong>32.8°</strong></div>
+              <div class="sub-metric"><span>Lake Shore Bearing:</span> <strong>177.3°</strong></div>
+              <div class="sub-metric"><span>Deviation:</span> <strong class="text-cyan">26.2°</strong></div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="card-chip font-mono text-coral">SIGN CANCELLATION PROBLEM</div>
+            <h3 class="card-heading">Descending Orbit Cancellation</h3>
+            <p class="card-text">
+              Across the full moraine polygon, Descending Track 048 has <strong>38.8% positive</strong> and <strong>61.2% negative</strong> projections, cancelling its sensitivity. Only filtering for slopes &ge; 25° restores a coherent negative signal (P = -0.276).
+            </p>
+            <p class="card-note font-mono">
+              CONCLUSION: Single descending passes cannot distinguish slope creep from ridge curving.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. FOUR-CLASS OBSERVABILITY ATLAS -->
+    <section id="observability-atlas" class="section">
+      <div class="section-header">
+        <div class="section-tag font-mono">04 // GEOPHYSICAL CLASSIFICATION</div>
+        <h2 class="section-title">Four-Class InSAR Observability Mapping</h2>
+        <p class="section-desc">
+          Every 30 m cell is objectively categorized into: 
+          <span class="text-zinc">Blind</span> (Layover/Shadow), 
+          <span class="text-amber">Low Sensitivity</span> (R &lt; 0.3), 
+          <span class="text-coral">Decorrelated</span> (&gamma; &lt; 0.3), or 
+          <span class="text-cyan">Observable</span>.
+          Use the sensitivity threshold dial to see how coverage changes.
+        </p>
+      </div>
+
+      <div class="threshold-controller tech-frame">
+        <div class="slider-header">
+          <span class="slider-label font-mono">SELECT SENSITIVITY THRESHOLD (R<sub>crit</sub>):</span>
+          <span class="slider-val font-mono text-cyan" id="r-val-display">R &ge; 0.30 (STANDARD)</span>
+        </div>
+        <div class="segmented-threshold-switch font-mono">
+          <button class="thresh-btn" data-r="20">
+            <span class="thresh-tag">R &ge; 0.20</span>
+            <span class="thresh-sub">LENIENT CRITERIA (95.0% DUAL)</span>
+          </button>
+          <button class="thresh-btn active" data-r="30">
+            <span class="thresh-tag text-cyan">R &ge; 0.30</span>
+            <span class="thresh-sub text-cyan">STANDARD // RECOMMENDED (87.0% DUAL)</span>
+          </button>
+          <button class="thresh-btn" data-r="50">
+            <span class="thresh-tag">R &ge; 0.50</span>
+            <span class="thresh-sub">STRICT CRITERIA (37.9% DUAL)</span>
+          </button>
+        </div>
+
+        <div class="coverage-comparison-grid">
+          <div class="coverage-column">
+            <div class="col-header font-mono">DESCENDING ONLY (TRACK 048)</div>
+            <div class="progress-bar-wrap">
+              <div class="progress-fill fill-desc" id="bar-desc" style="width: 51.8%;"></div>
+            </div>
+            <div class="col-stat font-mono" id="stat-desc">51.8% COVERAGE</div>
+            <p class="col-desc">Plagued by geometric sign-cancellation across curved moraine ridge benches.</p>
+          </div>
+
+          <div class="coverage-column">
+            <div class="col-header font-mono">ASCENDING ONLY (TRACK 012)</div>
+            <div class="progress-bar-wrap">
+              <div class="progress-fill fill-asc" id="bar-asc" style="width: 76.3%;"></div>
+            </div>
+            <div class="col-stat font-mono" id="stat-asc">76.3% COVERAGE</div>
+            <p class="col-desc">Consistently illuminates the SSE-facing flank with R &approx; 0.45 sensitivity.</p>
+          </div>
+
+          <div class="coverage-column highlight-col">
+            <div class="col-header font-mono text-cyan">DUAL-ORBIT COMBINED (MANDATORY)</div>
+            <div class="progress-bar-wrap">
+              <div class="progress-fill fill-combined" id="bar-comb" style="width: 87.0%;"></div>
+            </div>
+            <div class="col-stat font-mono text-cyan" id="stat-comb">87.0% OBSERVABLE</div>
+            <p class="col-desc">Dual-orbit synergy eliminates 87% of single-track blindness across the scarp.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="atlas-preview-box tech-frame">
+        <img src="../results/fig2_four_class_measurability_maps.png" alt="Four-Class Measurability Maps" class="media-img">
+        <div class="frame-caption font-mono">
+          FIGURE 02: FOUR-CLASS IN-SAR OBSERVABILITY MAPS (SEPTEMBER 2023 SNAPSHOT) + COMBINED MINIMUM DETECTABLE VELOCITY
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. THE NOISE PARADOX: SIGNAL VS. NOISE -->
+    <section id="signal-noise-paradox" class="section">
+      <div class="section-header">
+        <div class="section-tag font-mono">05 // SCIENTIFIC DISCOVERY & RECONCILIATION</div>
+        <h2 class="section-title">The "Whisper in a Jet Engine" Paradox</h2>
+        <p class="section-desc">
+          Why single satellite images could never have warned of the disaster: 
+          Compare the real pre-event moraine creep against the single-pair atmospheric noise floor.
+        </p>
+      </div>
+
+      <div class="paradox-comparator tech-frame">
+        <div class="gauge-card">
+          <div class="gauge-header">
+            <span class="badge font-mono text-emerald">TRUE GROUND CREEP</span>
+            <span class="citation font-mono">MOHANTY ET AL. (2026, SCI. REP.)</span>
+          </div>
+          <div class="visual-bar-container">
+            <div class="bar-actual-signal" style="width: 7.3%;">
+              <span class="bar-val font-mono">22 mm/yr</span>
+            </div>
+          </div>
+          <p class="gauge-explanation">
+            Measured by stacking <strong>64 Sentinel-1 scenes across 4 years (2017–2021)</strong> using multi-temporal PS-InSAR. Slow ice-core permafrost degradation.
+          </p>
+        </div>
+
+        <div class="gauge-card">
+          <div class="gauge-header">
+            <span class="badge font-mono text-coral">SINGLE 12-DAY PAIR NOISE FLOOR</span>
+            <span class="citation font-mono">THIS STUDY (119 BEDROCK PATCHES)</span>
+          </div>
+          <div class="visual-bar-container">
+            <div class="bar-noise-signal" style="width: 100%;">
+              <span class="bar-val font-mono">200 — 500 mm/yr (Noise Floor)</span>
+            </div>
+          </div>
+          <p class="gauge-explanation">
+            Atmospheric turbulence creates a 2&sigma; noise floor of 2.2–6.2 mm. On a 12-day baseline, this blinds the sensor to any movement smaller than 0.2–0.5 meters/year.
+          </p>
+        </div>
+
+        <div class="paradox-callout font-mono">
+          <div class="callout-icon">!</div>
+          <div class="callout-text">
+            <strong>THE PHYSICAL INFERENCE:</strong> Because 22 mm/yr &ll; 200–500 mm/yr, the true precursory creep is buried by an order of magnitude beneath single-pair noise. Pre-event pilot pairs yield [-651, +106] mm/yr (95% CI), statistically containing ZERO. Any claim of single-pair warning was an atmospheric illusion.
+          </div>
+        </div>
+      </div>
+
+      <div class="inversion-results-grid">
+        <div class="inversion-table-card tech-frame">
+          <div class="card-chip font-mono">STEEP SCARP JOINT INVERSION RESULTS</div>
+          <table class="tech-table font-mono">
+            <thead>
+              <tr>
+                <th>REFERENCE FRAME</th>
+                <th>NULL MODEL</th>
+                <th>VELOCITY (v)</th>
+                <th>95% CONFIDENCE INTERVAL</th>
+                <th>CONTAINS ZERO?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bedrock Ensemble (119)</td>
+                <td>Raw Spatial Null</td>
+                <td class="text-cyan">-273 &plusmn; 193 mm/yr</td>
+                <td>[-651, +106] mm/yr</td>
+                <td class="text-emerald">YES (Creep &lt; 0.11 m/yr)</td>
+              </tr>
+              <tr>
+                <td>Bedrock Ensemble (119)</td>
+                <td>Planar Detrended</td>
+                <td class="text-coral">-390 &plusmn; 105 mm/yr</td>
+                <td>[-595, -185] mm/yr</td>
+                <td class="text-coral">NO (Apparent Upslope Motion)</td>
+              </tr>
+              <tr>
+                <td>CTRL-01 Granitic Spur</td>
+                <td>Raw Spatial Null</td>
+                <td class="text-cyan">-248 &plusmn; 193 mm/yr</td>
+                <td>[-626, +131] mm/yr</td>
+                <td class="text-emerald">YES (Creep &lt; 0.13 m/yr)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="table-note font-mono">
+            * Under ramp removal, apparent velocity points UPSLOPE (v &lt; 0), physically ruling out gravitational creep and proving atmospheric contamination.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. OPERATIONAL MANDATE FOR INDIA -->
+    <section id="operational-mandate" class="section">
+      <div class="section-header">
+        <div class="section-tag font-mono">06 // IIRS & NDMA IMPLEMENTATION</div>
+        <h2 class="section-title">Operational Early Warning Blueprint for 189 Himalayan Lakes</h2>
+        <p class="section-desc">
+          Lessons learned from the South Lhonak disaster to protect critical downstream infrastructure across the Indian Himalaya.
+        </p>
+      </div>
+
+      <div class="mandate-cards-grid">
+        <div class="mandate-card tech-frame">
+          <div class="mandate-idx font-mono">01</div>
+          <h3 class="mandate-title">Ban Single-Pair Warning Triggers</h3>
+          <p class="mandate-body">
+            Automated disaster sirens must never fire from single interferograms. Because single pairs have 200–500 mm/yr noise, early warning requires multi-temporal time-series (SBAS) across &ge; 5 consecutive coherent scenes.
+          </p>
+        </div>
+
+        <div class="mandate-card tech-frame">
+          <div class="mandate-idx font-mono">02</div>
+          <h3 class="mandate-title">Mandatory Dual-Orbit Acquisition</h3>
+          <p class="mandate-body">
+            Single orbits leave up to 48% of steep moraine flanks blind or sign-cancelling. Sentinel-1 monitoring must acquire Ascending (Track 012) and Descending (Track 048) pairs concurrently.
+          </p>
+        </div>
+
+        <div class="mandate-card tech-frame">
+          <div class="mandate-idx font-mono">03</div>
+          <h3 class="mandate-title">Deploy L-Band Radar (NISAR)</h3>
+          <p class="mandate-body">
+            C-band radar (~5.6 cm) decorrelates over wet periglacial debris and monsoon clouds. NASA-ISRO SAR (NISAR, ~24 cm L-band) penetrates loose debris and sustains phase coherence throughout seasonal transitions.
+          </p>
+        </div>
+
+        <div class="mandate-card tech-frame">
+          <div class="mandate-idx font-mono">04</div>
+          <h3 class="mandate-title">Audit Lateral Slopes, Not Just Dams</h3>
+          <p class="mandate-body">
+            Traditional risk assessments focused only on frontal moraine dam overflow. South Lhonak proved that lateral moraine collapses trigger the impulse wave. All 189 high-risk lakes must screen 3D lateral slopes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="hud-footer">
+    <div class="footer-container font-mono">
+      <span>SOUTH LHONAK INSAR MEASURABILITY REPRODUCIBILITY ATLAS</span>
+      <span>INDIAN INSTITUTE OF REMOTE SENSING (IIRS / ISRO)</span>
+      <span>18/18 INVARIANTS PASSING // OCT 2026</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

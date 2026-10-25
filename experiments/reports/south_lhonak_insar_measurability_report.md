@@ -134,7 +134,30 @@ Because measured LOS offsets are positive (range shortening) while downslope pro
 
 ---
 
-## 7. Limitations & Scope
+## 7. Synthesis with Published Literature & Multi-Sensor Studies
+
+Recent satellite assessments and peer-reviewed studies provide critical benchmarks that validate and contextualize our measurability findings:
+
+| Source & Reference | Satellite Sensors Used | Key Findings & Parameters | Physical Relevance to This Study |
+| :--- | :--- | :--- | :--- |
+| **ISRO / NRSC (Oct 2023)**<br>[Satellite Studies of South Lhonak](https://www.isro.gov.in/Satellite_studies_South_Lhonak_Lake.html) | Sentinel-1A (28 Sep 2023),<br>RISAT-1A (04 Oct 2023) | Lake drained area estimated at **~105 hectares** between 28 Sept and 04 Oct. | Established the primary post-event drain boundary and rapid SAR damage assessment capability. |
+| **Patlolla et al. (2025)**<br>*J. Water & Climate Change* [16(1):127](https://iwaponline.com/jwcc/article/16/1/127/106444/GLOF-in-the-South-Lhonak-Lake-India) | Multi-sensor stereo photogrammetry (pre/post DEMs) | Landslide debris into lake: **11.50 MCM**;<br>Lake volume loss: **43.21 MCM**;<br>Total flood surge: **54.71 MCM**. | Rigorous volumetric differencing establishing that lateral slope debris displaced ~43 MCM of lake water. |
+| **Mohanty et al. (2026)**<br>*Scientific Reports* [16:9741](https://www.nature.com/articles/s41598-026-35895-7) | Sentinel-1 PS-InSAR stack (64 scenes, 2017–2021) | Background moraine subsidence rate of **~22 mm/yr** (~2.2 cm/yr);<br>Collapse volume: **38.31 MCM** debris + **7.11 MCM** ice calving (**45.42 MCM** total). | Measures the true long-term pre-event moraine creep rate ($22\text{ mm/yr}$) driven by ice-core degradation. |
+| **Yu et al. (2024)**<br>*Remote Sensing* [16(13):2307](https://www.mdpi.com/2072-4292/16/13/2307) | Sentinel-1 SBAS time-series (83 asc, 79 desc, 2021–2023) | Progressive pre-event deformation identified along the lateral moraine. | Corroborates multi-year precursory creep, but lacks false-alarm analysis or geometric sensitivity quantification. |
+| **Remya et al. (2025)**<br>*Environ. Res. Commun.* [7:115026](https://publications.azimpremjiuniversity.edu.in/6933/1/913.%20S_N_2025_Environ._Res._Commun._7_115026.pdf) | Multi-decadal optical & SAR (10 satellite missions) | Lake expanded **~12x** from $0.11\text{ km}^2$ (1962) to $1.4\text{ km}^2$ (2023); calving icebergs destabilized lateral moraine. | Demonstrates that long-term cryospheric warming primed the lateral slopes for sudden detachment. |
+| **NDMA Sikkim Conclave (2023–24)**<br>& Suhora Analytics [Case Study](https://ndma.gov.in/sites/default/files/PDF/Sikkim_Conclave/Session%205/9%20sikkim%20GLOF%20South%20Lhonak%20Lake%20Case%20Study.pdf) | National disaster case study & satellite inventory | Paradigm shift from dam overtopping to **lateral moraine destabilization**; InSAR mandated for 189 high-risk Himalayan lakes. | Establishes the operational mandate for slope measurability screening across the Himalayas. |
+
+### Reconciliation: Why Single-Pair InSAR Cannot Resolve Precursory Creep
+A paramount insight emerges from contrasting our measurability thresholds against the multi-year PS-InSAR results of Mohanty et al. (2026):
+1. **True Precursory Velocity:** Multi-year PS-InSAR resolves a true physical background subsidence rate on the left lateral moraine of **$\sim 22\text{ mm/yr}$** ($0.022\text{ m/yr}$).
+2. **Single-Pair Detection Floor:** Our empirical noise analysis demonstrates that a single 12-day Sentinel-1 pair has a $2\sigma$ spatial noise floor of $2.2 - 6.2\text{ mm}$, yielding a minimum detectable slope velocity of:
+   $$v_{\text{min\_det}} = \frac{2\sigma_{\text{spatial}}}{R \cdot \Delta t} \approx 200 - 500\text{ mm/yr} \quad (0.2 - 0.5\text{ m/yr})$$
+3. **Physical Consequence ($22\text{ mm/yr} \ll 200 - 500\text{ mm/yr}$):** The true physical creep rate is an **order of magnitude smaller than the single-pair atmospheric noise floor**. 
+4. **Scientific Defense:** This quantitatively explains why our single-pair joint inversions correctly span zero ($[-651, +106]\text{ mm/yr}$), and why any apparent signal at $3\sigma$ under ramp removal points *upslope* (an atmospheric artefact). Any claim that single Sentinel-1 pairs detect precursory creep is physically untenable; operational hazard systems must rely on multi-temporal SBAS/PS-InSAR stacks and upcoming missions like NISAR L-band.
+
+---
+
+## 8. Limitations & Scope
 
 1. **Snapshot Sample:** Based on three single 12-day pilot pairs in September and May 2023. Monsoon peak and winter snowpack coherence were not tested.
 2. **Spatial Ramp Extrapolation:** Removing a planar ramp from bedrock points reduces apparent noise, but assuming that the plane continues across the 3 km mountain valley is unproven on single pairs.
@@ -144,8 +167,9 @@ Because measured LOS offsets are positive (range shortening) while downslope pro
 
 ---
 
-## 8. Conclusions for Remote Sensing & GIS Applications
+## 9. Conclusions for Remote Sensing & GIS Applications
 
-* Sentinel-1 C-band InSAR is **geometrically observable** across the South Lhonak lateral moraine, achieving **87.0% observability** on the scarp ($R \ge 0.3$) and **95.0%** at $R \ge 0.2$ when combining Ascending and Descending orbits.
-* Single-orbit monitoring is geometrically incomplete: Descending track alone provides lower sensitivity ($R \approx 0.31$) and sign-cancelling projections across curved ridge facets, whereas Ascending Track 12 is consistently sensitive ($R \approx 0.45$).
-* Single 12-day pairs have an atmospheric noise floor of $\sim 2 - 5\text{ mm}$, limiting single-pair velocity detection to $\sim 0.2 - 0.5\text{ m/yr}$. Pre-failure pilot observations are statistically consistent with zero motion within this noise floor, demonstrating that operational slope hazard warning requires multi-temporal InSAR time series.
+* **Geometric Observability:** Sentinel-1 C-band InSAR is **geometrically observable** across the South Lhonak lateral moraine, achieving **87.0% observability** on the scarp ($R \ge 0.3$) and **95.0%** at $R \ge 0.2$ when combining Ascending and Descending orbits.
+* **Dual-Track Necessity:** Single-orbit monitoring is geometrically incomplete: Descending track alone provides lower sensitivity ($R \approx 0.31$) and sign-cancelling projections across curved ridge facets, whereas Ascending Track 12 is consistently sensitive ($R \approx 0.45$). Multi-track acquisition is mandatory for steep Himalayan valleys.
+* **Single-Pair Sensitivity Limit vs. Literature Ground Truth:** Single 12-day pairs have an atmospheric noise floor of $\sim 2 - 5\text{ mm}$, limiting single-pair velocity detection to $\sim 0.2 - 0.5\text{ m/yr}$. Because true moraine creep occurs at $\sim 22\text{ mm/yr}$ (Mohanty et al., 2026), single pre-event pairs are statistically consistent with zero motion. Operational slope early warning systems cannot rely on single pairs and must deploy multi-temporal InSAR time-series.
+

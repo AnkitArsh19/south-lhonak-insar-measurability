@@ -24,8 +24,7 @@ experiments/reports/dataset_acquisition_plan.md
 experiments/reports/elevation_audit.json
 experiments/reports/sentinel1_pair_selection.csv
 experiments/reports/aoi_dem_preview.png
-decisions/
-docs/
+
 
 # ============================================
 # Internal agent chats, instructions & planning docs
