@@ -1,0 +1,281 @@
+{
+  "project": "Observability & Measurability of Sentinel-1 InSAR for Slope Monitoring Around South Lhonak Lake",
+  "dem_source": "Copernicus GLO-30 Digital Elevation Model (30 m native resolution, 1 arcsecond)",
+  "temporal_scope": "September 2023 snapshot (single 12-day pairs; monsoon peak and winter snowpack coherence unconstrained)",
+  "geometric_bearings": {
+    "scarp_centroid_lon_lat": [
+      88.20738333333333,
+      27.920816666666664
+    ],
+    "bearing_to_nearest_lake_shore_deg": 177.317597013739,
+    "bearing_to_lake_centroid_deg": 236.71594500463019,
+    "scarp_circular_mean_aspect_deg": 151.12291385339424,
+    "scarp_circular_angular_dispersion": 0.40318605067178426,
+    "aspect_shore_bearing_difference_deg": 26.194683160344766,
+    "aspect_lake_centroid_difference_deg": 85.59303115123595,
+    "morphological_interpretation": "The failure scarp faces South-Southeast (circular mean aspect 151.1 deg, dispersion 0.05). This downslope vector faces the lake, aligning within 26.2 deg of the nearest southern lake shore (bearing 177.3 deg from the static 2020/21 lake mask). It differs from the bearing to the lake centroid (236.7 deg, WSW), because the elongated glacial lake extends westward toward the glacier snout."
+  },
+  "scarp_topography_and_slope_distribution": {
+    "pixel_count_30m": 523,
+    "steep_scarp_pixel_count_30m": 235,
+    "steep_scarp_fraction_pct": 44.93307839388145,
+    "approx_independent_80m_sar_pixels": 33.046875,
+    "elevation_mean_masl": 5350.0722945671005,
+    "slope_distribution": {
+      "mean": 21.79871664247851,
+      "median": 20.459855976909246,
+      "std": 12.340163811928562,
+      "p05": 4.182534201316902,
+      "p25": 9.952157723899258,
+      "p75": 35.134864990627534,
+      "p95": 37.12632731858288
+    },
+    "slope_bins": {
+      "0_15_deg_pct": 39.77055449330784,
+      "15_25_deg_pct": 15.296367112810708,
+      "25_35_deg_pct": 16.44359464627151,
+      "35_45_deg_pct": 28.489483747609945
+    },
+    "topographic_interpretation": "The approximate analysis box (43.6 ha) contains both the steep active moraine flank (35-39 deg, comprising 28.5% of pixels) and the flatter moraine crest/bench (<15 deg, comprising 39.8% of pixels), yielding a polygon-wide mean slope of 21.8 deg. Restricting analysis to slopes >= 25 deg isolates the steep active scarp face (235 pixels, ~31-33 independent 80 m SAR pixels, mean slope 32.8 deg)."
+  },
+  "scarp_signed_projections_and_distributions": {
+    "descending_Track48": {
+      "mean": -0.03395370288631737,
+      "median": -0.14811995131907796,
+      "std": 0.34436111299568034,
+      "p05": -0.45413729426351485,
+      "p25": -0.3116193688161115,
+      "p75": 0.28969117737754535,
+      "p95": 0.5495362504744,
+      "positive_count": 203,
+      "positive_pct": 38.81453154875717,
+      "negative_count": 320,
+      "negative_pct": 61.18546845124283
+    },
+    "ascending_Track12": {
+      "mean": -0.39713572550659554,
+      "median": -0.39677446968432406,
+      "std": 0.29711479801399476,
+      "p05": -0.8083197059396882,
+      "p25": -0.621405464877017,
+      "p75": -0.28393421175535066,
+      "p95": 0.19451134674578796,
+      "positive_count": 49,
+      "positive_pct": 9.369024856596559,
+      "negative_count": 474,
+      "negative_pct": 90.63097514340345
+    },
+    "steep_scarp_mean_projections": {
+      "descending_Track48": -0.27565364809962006,
+      "ascending_Track12": -0.36581766941621163
+    },
+    "sign_cancellation_note": "Descending Track 48 exhibits sign-cancelling projections across the full box (38.8% positive, 61.2% negative; mean P = -0.034, but mean |R| = 0.309) because the flat upper bench curves toward the sensor. Filtering to the steep scarp (slope >= 25 deg) resolves this ambiguity: mean P_desc becomes consistently negative (-0.2757) and P_asc remains negative (-0.3658), providing well-posed geometric sensitivity."
+  },
+  "sensitivity_threshold_analysis": {
+    "R_ge_0.2": {
+      "scarp": {
+        "Descending_Observable_pct": 78.0114722753346,
+        "Ascending_Observable_pct": 89.10133843212236,
+        "Combined_Observable_pct": 95.02868068833652
+      },
+      "entire_10km_aoi": {
+        "Descending_Observable_pct": 55.063657407407405,
+        "Ascending_Observable_pct": 53.84149029982363,
+        "Combined_Observable_pct": 69.96941137566137
+      }
+    },
+    "R_ge_0.3": {
+      "scarp": {
+        "Descending_Observable_pct": 51.816443594646266,
+        "Ascending_Observable_pct": 76.2906309751434,
+        "Combined_Observable_pct": 86.9980879541109
+      },
+      "entire_10km_aoi": {
+        "Descending_Observable_pct": 44.78615520282187,
+        "Ascending_Observable_pct": 45.457175925925924,
+        "Combined_Observable_pct": 63.37770061728395
+      }
+    },
+    "R_ge_0.5": {
+      "scarp": {
+        "Descending_Observable_pct": 12.4282982791587,
+        "Ascending_Observable_pct": 35.37284894837477,
+        "Combined_Observable_pct": 37.858508604206506
+      },
+      "entire_10km_aoi": {
+        "Descending_Observable_pct": 24.312444885361554,
+        "Ascending_Observable_pct": 29.508377425044092,
+        "Combined_Observable_pct": 45.79475308641975
+      }
+    }
+  },
+  "observability_class_percentages_at_R_0_3": {
+    "scarp_analysis_box": {
+      "Descending_Track48": {
+        "Observable_pct": 51.816443594646266,
+        "Low_Sensitivity_pct": 48.18355640535373,
+        "Decorrelated_pct": 0.0,
+        "Blind_pct": 0.0
+      },
+      "Ascending_Track12": {
+        "Observable_pct": 76.2906309751434,
+        "Low_Sensitivity_pct": 23.709369024856596,
+        "Decorrelated_pct": 0.0,
+        "Blind_pct": 0.0
+      },
+      "Combined_Geometry": {
+        "Observable_pct": 86.9980879541109,
+        "Low_Sensitivity_pct": 13.001912045889103,
+        "Decorrelated_pct": 0.0,
+        "Blind_pct": 0.0
+      }
+    },
+    "entire_10km_aoi": {
+      "Descending_Track48": {
+        "Observable_pct": 44.78615520282187,
+        "Low_Sensitivity_pct": 41.048004850088184,
+        "Decorrelated_pct": 11.564429012345679,
+        "Blind_pct": 2.6014109347442678
+      },
+      "Ascending_Track12": {
+        "Observable_pct": 45.457175925925924,
+        "Low_Sensitivity_pct": 37.15277777777778,
+        "Decorrelated_pct": 14.295359347442682,
+        "Blind_pct": 3.0946869488536155
+      },
+      "Combined_Geometry": {
+        "Observable_pct": 63.37770061728395,
+        "Low_Sensitivity_pct": 28.603119488536155,
+        "Decorrelated_pct": 6.0626102292768955,
+        "Blind_pct": 1.9565696649029982
+      }
+    }
+  },
+  "non_circular_coherence_validation_by_local_incidence": {
+    "Descending_Track48": {
+      "0-30 deg": {
+        "pixel_count": 11478,
+        "pixel_fraction_pct": 15.815145502645503,
+        "mean_coherence": 0.694191575050354,
+        "median_coherence": 0.8428912162780762,
+        "unwrapping_success_pct": 98.98937097055236
+      },
+      "30-50 deg": {
+        "pixel_count": 40182,
+        "pixel_fraction_pct": 55.36541005291006,
+        "mean_coherence": 0.7172645926475525,
+        "median_coherence": 0.88865727186203,
+        "unwrapping_success_pct": 93.2780847145488
+      },
+      "50-70 deg": {
+        "pixel_count": 16653,
+        "pixel_fraction_pct": 22.94560185185185,
+        "mean_coherence": 0.6686197519302368,
+        "median_coherence": 0.8148127794265747,
+        "unwrapping_success_pct": 98.75698072419384
+      },
+      "70-85 deg (Grazing)": {
+        "pixel_count": 3748,
+        "pixel_fraction_pct": 5.164241622574957,
+        "mean_coherence": 0.5855984091758728,
+        "median_coherence": 0.6538858413696289,
+        "unwrapping_success_pct": 99.41302027748132
+      },
+      ">85 deg (Shadow/Blind)": {
+        "pixel_count": 515,
+        "pixel_fraction_pct": 0.7096009700176367,
+        "mean_coherence": 0.4539989233016968,
+        "median_coherence": 0.36028504371643066,
+        "unwrapping_success_pct": 98.25242718446601
+      }
+    },
+    "Ascending_Track12": {
+      "0-30 deg": {
+        "pixel_count": 6338,
+        "pixel_fraction_pct": 8.732914462081128,
+        "mean_coherence": 0.5321317911148071,
+        "median_coherence": 0.5133018493652344,
+        "unwrapping_success_pct": 99.44777532344588
+      },
+      "30-50 deg": {
+        "pixel_count": 35935,
+        "pixel_fraction_pct": 49.513613315696645,
+        "mean_coherence": 0.6542916893959045,
+        "median_coherence": 0.7835556268692017,
+        "unwrapping_success_pct": 92.62557395297064
+      },
+      "50-70 deg": {
+        "pixel_count": 23658,
+        "pixel_fraction_pct": 32.59755291005291,
+        "mean_coherence": 0.6348376870155334,
+        "median_coherence": 0.7542424201965332,
+        "unwrapping_success_pct": 97.63293600473413
+      },
+      "70-85 deg (Grazing)": {
+        "pixel_count": 4953,
+        "pixel_fraction_pct": 6.824570105820106,
+        "mean_coherence": 0.5567111968994141,
+        "median_coherence": 0.6189321875572205,
+        "unwrapping_success_pct": 97.75893397940642
+      },
+      ">85 deg (Shadow/Blind)": {
+        "pixel_count": 1692,
+        "pixel_fraction_pct": 2.3313492063492065,
+        "mean_coherence": 0.2684859037399292,
+        "median_coherence": 0.2337876707315445,
+        "unwrapping_success_pct": 96.27659574468085
+      }
+    }
+  },
+  "joint_two_track_velocity_inversions": {
+    "steep_scarp_single_inversion": {
+      "sample_size_30m_dem_pixels": 235,
+      "approx_independent_80m_sar_pixels": 33.046875,
+      "steep_scarp_mean_slope_deg": 34.4474628563237,
+      "steep_scarp_mean_aspect_deg": 151.12291385339424,
+      "steep_scarp_mean_P_desc": -0.27565364809962006,
+      "steep_scarp_mean_P_asc": -0.36581766941621163,
+      "relative_to_ensemble_reference": {
+        "raw_null_model": {
+          "velocity_mm_yr": -272.68204840583803,
+          "sigma_mm_yr": 193.10013236283862,
+          "ci95_low_mm_yr": -651.1583078370018,
+          "ci95_high_mm_yr": 105.79421102532564,
+          "upper_bound_downslope_creep_mm_yr": 105.79421102532564,
+          "contains_zero": true,
+          "z_score": 1.4121277135815917
+        },
+        "detrended_null_model": {
+          "velocity_mm_yr": -390.3731284178403,
+          "sigma_mm_yr": 104.56451780995063,
+          "ci95_low_mm_yr": -595.3195833253435,
+          "ci95_high_mm_yr": -185.42667351033705,
+          "upper_bound_downslope_creep_mm_yr": 0.0,
+          "contains_zero": false,
+          "z_score": 3.7333230869706298
+        }
+      },
+      "relative_to_ctrl01_reference": {
+        "raw_null_model": {
+          "velocity_mm_yr": -247.46376940067034,
+          "sigma_mm_yr": 193.10013236283862,
+          "ci95_low_mm_yr": -625.9400288318341,
+          "ci95_high_mm_yr": 131.01249003049332,
+          "upper_bound_downslope_creep_mm_yr": 131.01249003049332,
+          "contains_zero": true,
+          "z_score": 1.2815308118778577
+        },
+        "detrended_null_model": {
+          "velocity_mm_yr": -327.2711351382531,
+          "sigma_mm_yr": 104.56451780995063,
+          "ci95_low_mm_yr": -532.2175900457563,
+          "ci95_high_mm_yr": -122.32468023074986,
+          "upper_bound_downslope_creep_mm_yr": 0.0,
+          "contains_zero": false,
+          "z_score": 3.129848843496595
+        }
+      }
+    },
+    "scientific_conclusion": "The steep-scarp joint inversion is model-dependent. Under the conservative raw spatial noise model, zero motion is contained in the 95% confidence interval (Ensemble: [-651, +106] mm/yr; CTRL-01: [-626, +131] mm/yr). Under the ramp-removed (detrended) null model, an apparent signal appears at ~3.7-sigma (Ensemble: -390 +/- 105 mm/yr; CTRL-01: -327 +/- 105 mm/yr). This apparent signal is directed upslope (v < 0), which is physically implausible as gravitational slope creep and is consistent with residual atmospheric phase delays or reference-pixel drift across steep alpine relief, but two pilot pairs cannot resolve this. Single pilot pairs cannot detect slope creep below roughly 0.2 to 0.5 m/yr, and the two pilot pairs constrain slope-parallel creep only to within a few tenths of a metre per year."
+  }
+}

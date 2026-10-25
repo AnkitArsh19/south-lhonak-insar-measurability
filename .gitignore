@@ -1,0 +1,105 @@
+# IIRS South Lhonak Research Project - .gitignore
+
+# ============================================
+# Large satellite data (DO NOT commit to git)
+# ============================================
+data/sar/
+data/dem/
+data/optical/
+*.zip
+*.tar.gz
+*.tgz
+*.kmz
+
+# ============================================
+# Scratch & interim experiment outputs
+# ============================================
+results/EXP001/
+experiments/reports/phase1_comprehensive_retrospective_report.md
+experiments/reports/multi_baseline_pilot_benchmark_report.md
+experiments/reports/pilot1_insar_optical_audit_report.md
+experiments/reports/data_audit.md
+experiments/reports/data_audit_summary.json
+experiments/reports/dataset_acquisition_plan.md
+experiments/reports/elevation_audit.json
+experiments/reports/sentinel1_pair_selection.csv
+experiments/reports/aoi_dem_preview.png
+decisions/
+docs/
+
+# ============================================
+# Internal agent chats, instructions & planning docs
+# ============================================
+agentchat.txt
+.agents/
+AGENTS.md
+PHASED_RESEARCH_PLAN.md
+project_outline.md
+PROJECT_REFERENCE.md
+important_data.md
+
+# ============================================
+# Sentinel-1 SLC products & InSAR intermediates
+# ============================================
+*.SAFE/
+*.safe/
+S1*.zip
+S1*.SAFE
+
+# NISAR products
+NISAR_*.h5
+NISAR_*.nc
+
+# Raster data (large)
+*.tif
+*.tiff
+*.img
+*.hdr
+*.vrt
+!results/**/*.tif
+
+interferograms/
+coregistered/
+unwrapped/
+mintpy_work/
+isce_work/
+*.slc
+*.int
+*.unw
+*.cor
+*.dem.wgs84
+*.geo
+
+# ============================================
+# Python & Environment
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.pytest_cache/
+
+# Virtual environments
+venv/
+venv_*/
+.venv/
+env/
+.env
+
+# ============================================
+# IDE & OS
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+.ipynb_checkpoints/

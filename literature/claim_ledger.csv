@@ -1,0 +1,15 @@
+claim_id,claim_text,source_paper,source_section,evidence_type,confidence,contradicted_by,notes,verified_date
+CLM001,"South Lhonak GLOF occurred night of 3-4 October 2023",Multiple sources,Various,Observed event date,High,,Trigger late Oct 3; downstream flood Oct 4,2026-10-22
+CLM002,"Failed moraine volume ~14.7 million m³",PAP005 (Sattar et al.),TBD,Published estimate,Medium,"PAP002 (38.31M m³ total debris)","Different scope: moraine-only vs total debris+ice. Disagreement is acknowledged.",2026-10-22
+CLM003,"Debris volume ~38.31 million m³ plus ~7 million m³ ice calving",PAP002 (Mohanty et al. 2026),Main text,Published estimate,Medium,"PAP005 (~14.7M m³ moraine only)","Includes total debris + separate ice calving figure",2026-10-22
+CLM004,"~105 hectares of lake area drained",PAP004 (ISRO/NRSC 2023),Assessment report,Satellite observation,High,,"Based on RISAT-1A vs Sentinel-1A comparison",2026-10-22
+CLM005,"India's Himalaya holds ~7500 glacial lakes",NDMA / PIB / NRSC,Various official sources,Official inventory,High,,"Widely cited across government sources",2026-10-22
+CLM006,"NDMA high-risk list of ~189-190 lakes",NDMA reports,Various,Official list,High,,"Dynamic list; number may change as assessments continue",2026-10-22
+CLM007,"Teesta III dam at Chungthang destroyed ~60-68 km downstream",Multiple sources,Various,Observed event,High,,"Distance along river flow path; 1200 MW dam",2026-10-22
+CLM008,"Lake area increased ~12x between 1962 and 2023",PAP003 (Remya et al. 2025),Abstract/main text,Satellite-derived analysis,High,,"Multi-decadal optical analysis",2026-10-22
+CLM009,"Sentinel-1 C-band wavelength ~5.6 cm; half-wavelength ~2.8 cm per fringe",ESA documentation,Technical specs,Physical constant,High,,"5.405 GHz → 5.546 cm; commonly rounded to 5.6 cm",2026-10-22
+CLM010,"NISAR launched July 2025",NASA/ISRO official,Launch record,Observed event,High,,"30 July 2025 via GSLV-F16 from Sriharikota",2026-10-22
+CLM011,"NISAR public provisional products from acquisitions beginning 17 June 2026",ASF DAAC / NASA,Data release notes,Official data release,High,,"Public release began 20 July 2026",2026-10-22
+CLM012,"Mohanty et al. 2026 published in Scientific Reports (NOT Science Advances)",PMC / Springer Nature,Publication metadata,Verified citation,High,,"project_outline.md line 340 incorrectly says Science Advances — MUST FIX",2026-10-22
+CLM013,"Sattar et al. published in Science journal",[UNVERIFIED],TBD,Claimed citation,Low,,"Referenced in project_outline.md line 339; journal venue not independently confirmed",2026-10-22
+CLM014,"An existing 2024 paper already analyses pre-event InSAR deformation at South Lhonak",PAP001 (MDPI 2024),Full paper,Published research,High,,"Means simply applying InSAR to South Lhonak pre-2023 is NOT novel",2026-10-22

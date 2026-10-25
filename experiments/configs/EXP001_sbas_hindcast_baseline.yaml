@@ -1,0 +1,64 @@
+# EXP001: Baseline C-band SBAS Hindcast (2017-2023)
+# Protocol: Leave-future-out hindcast to evaluate true early-warning detection capability
+
+experiment:
+  id: "EXP001"
+  name: "baseline_sbas_hindcast"
+  version: "1.0.0"
+  description: "Re-evaluates pre-event deformation on South Lhonak lateral moraine prior to 3-4 Oct 2023 flood"
+  random_seed: 42
+
+study_area:
+  name: "South Lhonak Glacial Lake, Sikkim"
+  bbox: [88.15, 27.85, 88.25, 27.95] # [min_lon, min_lat, max_lon, max_lat]
+  epsg: 4326
+  target_feature: "North-western lateral moraine slope above lake"
+  elevation_masl: 5200
+
+control_regions:
+  - id: "CTRL-01"
+    name: "Stable Bedrock Ridge East"
+    bbox: [88.23, 27.90, 88.25, 27.92]
+    expected_motion: "0 mm/yr"
+  - id: "CTRL-02"
+    name: "Stable Lateral Moraine West"
+    bbox: [88.16, 27.86, 88.18, 27.88]
+    expected_motion: "0 mm/yr"
+
+data:
+  sensor: "Sentinel-1"
+  mode: "IW"
+  product: "SLC"
+  polarization: "VV"
+  tracks:
+    ascending: [12]
+    descending: [48]
+  date_start: "2017-01-01"
+  date_end: "2023-10-03" # Cutoff right before failure event
+  dem: "Copernicus GLO-30"
+
+processing:
+  engine: "MintPy"
+  network:
+    max_temporal_baseline_days: 48
+    max_perpendicular_baseline_meters: 150
+    coherence_threshold: 0.35
+  troposphere_correction: "ERA5" # via PyAPS
+  topographic_residual: true
+  phase_unwrapping_method: "snaphu"
+  reference_point:
+    lat: 27.915
+    lon: 88.240
+
+detector:
+  algorithm: "cusum_anomaly"
+  burn_in_period: ["2017-01-01", "2020-12-31"] # Pure training / baseline phase
+  testing_period: ["2021-01-01", "2023-10-03"] # Evaluation phase
+  threshold_sigma: 3.0
+  consecutive_points: 3
+
+evaluation_metrics:
+  - "time_to_first_alarm"
+  - "false_detection_rate_on_controls"
+  - "coherence_loss_fraction"
+  - "lead_time_days"

@@ -1,0 +1,10 @@
+evidence_dimension,paper_id,finding,supports_our_hypothesis,quality_of_evidence,notes
+Pre-event deformation detected,PAP001,"InSAR deformation detected in moraine surrounding South Lhonak 2021-2023",Yes,Medium,"Short time window; no control slopes; no false-alarm analysis"
+Event volume (moraine),PAP005,"~14.7M m³ moraine failure",Contextual,Medium,"Moraine-only estimate; journal venue unverified"
+Event volume (total),PAP002,"~38.31M m³ debris + ~7M m³ ice",Contextual,Medium,"Larger estimate; includes total debris + ice calving"
+Lake area drainage,PAP004,"~105 ha drained on 4 Oct 2023",Contextual,High,"Official ISRO satellite observation"
+Long-term lake growth,PAP003,"~12x area increase 1962-2023",Contextual,High,"Multi-decadal optical; provides geomorphological context"
+Impulse wave physics,PAP006,"Empirical impulse product parameter for wave prediction",Contextual,High,"Laboratory-derived; scaling to field requires care"
+InSAR time-series method,PAP007,"MintPy SBAS with unwrapping error correction",Methodological,High,"Established tool; widely used and validated"
+Optical feature tracking,PAP008,"COSI-Corr sub-pixel correlation method",Methodological,High,"Established tool; cloud-free imagery required"
+Mass-flow modelling,PAP009,"r.avaflow two-phase mass flow simulation",Methodological,High,"Established tool; complex setup and calibration"
