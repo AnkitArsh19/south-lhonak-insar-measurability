@@ -12,7 +12,7 @@ import pyproj
 from shapely.geometry import shape, Point
 from shapely.ops import transform
 
-ROOT = Path("e:/Personal/iirs")
+ROOT = Path(__file__).resolve().parent.parent
 GEOJSON_PATH = ROOT / "data" / "vector" / "south_lhonak_aoi.geojson"
 SAR_PILOT_DIR = ROOT / "data" / "sar" / "S1AA_20230916T000326_20230928T000326_VVP012_INT80_G_weF_48B4"
 

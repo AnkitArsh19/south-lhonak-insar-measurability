@@ -27,7 +27,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import pyproj
 
-ROOT = Path("e:/Personal/iirs")
+ROOT = Path(__file__).resolve().parents[2]
 SAR_DIR = ROOT / "data" / "sar"
 OPT_DIR = ROOT / "data" / "optical" / "sentinel2"
 OUT_DIR = ROOT / "results" / "EXP001"
@@ -358,13 +358,6 @@ fig.savefig(out_png, bbox_inches="tight")
 plt.close(fig)
 print(f"Saved 3-pair benchmark figure to: {out_png}")
 
-# Copy to artifacts directory
-dst_art = Path("C:/Users/ankit/.gemini/antigravity-ide/brain/467d2151-0b73-4b15-87cc-423cb27c58be/multi_baseline_three_pair_benchmark.png")
-try:
-    shutil.copy(out_png, dst_art)
-    print(f"Copied figure to artifacts: {dst_art}")
-except Exception as e:
-    print(f"Artifact copy warning: {e}")
 
 # Save full JSON metrics including semivariogram and per-point bedrock table
 out_json = OUT_DIR / "multi_baseline_audit_metrics.json"

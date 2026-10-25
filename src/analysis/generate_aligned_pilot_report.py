@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import pyproj
 
-ROOT = Path("e:/Personal/iirs")
+ROOT = Path(__file__).resolve().parents[2]
 SAR_DIR = ROOT / "data" / "sar" / "S1AA_20230916T000326_20230928T000326_VVP012_INT80_G_weF_48B4"
 OPT_DIR = ROOT / "data" / "optical" / "sentinel2"
 OUT_DIR = ROOT / "results" / "EXP001"

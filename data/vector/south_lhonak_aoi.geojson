@@ -37,7 +37,7 @@
         "type": "Glacial_Lake_Water_Body",
         "status": "baseline_mask",
         "elevation_masl": 5165,
-        "source": "Static InSAR water mask boundary from HyP3 processing package (derived from ESA WorldCover 2020/21 and OpenStreetMap; reflects ~2020 lake extent of ~152 ha, prior to the additional proglacial calving expansion documented by Qu et al. (2025) reaching ~167.4 ha on 28-Sep-2023)"
+        "source": "OpenStreetMap-derived static mask (epoch unknown) from HyP3 processing package; reflects ~151.7 ha extent prior to proglacial calving expansion reaching ~167.4 ha on 28-Sep-2023"
       },
       "geometry": {
         "type": "Polygon",

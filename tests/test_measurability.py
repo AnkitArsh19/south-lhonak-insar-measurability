@@ -192,17 +192,20 @@ def test_hyp3_sign_convention_and_forward_model():
 def test_scarp_aspect_faces_lake():
     """
     Verifies that the moraine scarp circular mean aspect computed on the native 30 m GLO-30 DEM
-    physically faces the lake (nearest southern lake shore bearing: 177.3 deg from the static 2020/21 lake mask)
-    within a loose tolerance of <= 35 deg.
-    Avoids circular comparison against hand-drawn breach boxes.
+    physically faces the lake (nearest southern lake shore bearing: 177.3 deg from digitized pre-event lake polygon).
+    The loose preliminary tolerance of <= 35 deg (+/- 1 compass octant) confirms the scarp slopes
+    generally South towards the lake rather than North/East away from it.
+    Measured full-box aspect is 151.1 deg (diff: 26.2 deg), while the steep active scarp face is
+    174.7 deg (diff: 2.6 deg).
     """
-    glo30_path = Path("e:/Personal/iirs/data/dem/Copernicus_DSM_COG_10_N27_00_E088_00_DEM.tif")
+    root_dir = Path(__file__).resolve().parent.parent
+    glo30_path = root_dir / "data" / "dem" / "Copernicus_DSM_COG_10_N27_00_E088_00_DEM.tif"
     assert glo30_path.exists(), "Copernicus GLO-30 DEM missing!"
     
     im_dem = Image.open(glo30_path)
     arr_dem = np.array(im_dem)
     
-    with open("e:/Personal/iirs/data/vector/south_lhonak_aoi.geojson", "r", encoding="utf-8") as f:
+    with open(root_dir / "data" / "vector" / "south_lhonak_aoi.geojson", "r", encoding="utf-8") as f:
         gj = json.load(f)
     feats = {feat["properties"]["id"]: shape(feat["geometry"]) for feat in gj["features"]}
     scarp = feats["LATERAL-MORAINE-SCARP"]
@@ -233,6 +236,7 @@ def test_scarp_aspect_faces_lake():
     p = dz_dcol
     q = - dz_drow
     aspect_deg = (np.rad2deg(np.arctan2(-p, -q))) % 360.0
+    slope_sub = np.rad2deg(np.arctan(np.sqrt(p**2 + q**2)))
     
     scarp_mask = np.zeros(dem_sub.shape, dtype=bool)
     for r in range(dem_sub.shape[0]):
@@ -249,10 +253,20 @@ def test_scarp_aspect_faces_lake():
     
     diff_shore = abs(circ_mean_aspect - bearing_nearest_shore)
     assert diff_shore <= 35.0, f"Scarp aspect {circ_mean_aspect:.1f} deg deviates >35 deg from nearest shore ({diff_shore:.1f} deg)"
+    
+    # Steep scarp face alignment (slope >= 25 deg)
+    steep_mask = scarp_mask & (slope_sub >= 25.0)
+    aspect_steep = aspect_deg[steep_mask]
+    sin_s = float(np.mean(np.sin(np.deg2rad(aspect_steep))))
+    cos_s = float(np.mean(np.cos(np.deg2rad(aspect_steep))))
+    circ_steep_aspect = float((np.rad2deg(np.arctan2(sin_s, cos_s))) % 360.0)
+    diff_steep_shore = abs(circ_steep_aspect - bearing_nearest_shore)
+    assert diff_steep_shore <= 10.0, f"Steep scarp aspect {circ_steep_aspect:.1f} deg deviates >10 deg from nearest shore ({diff_steep_shore:.1f} deg)"
 
 def test_metrics_json_integrity():
     """Verify measurability_metrics.json exists and contains complete required keys and valid numbers."""
-    json_path = Path("e:/Personal/iirs/results/measurability_metrics.json")
+    root_dir = Path(__file__).resolve().parent.parent
+    json_path = root_dir / "results" / "measurability_metrics.json"
     assert json_path.exists(), "measurability_metrics.json missing!"
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)

@@ -13,11 +13,11 @@
 
 On the night of 3–4 October 2023, a catastrophic Glacial Lake Outburst Flood (GLOF) originated from South Lhonak Lake in North Sikkim, India, draining approximately 105 hectares of the lake surface, breaching the terminal moraine, and destroying the downstream 1,200 MW Teesta-III hydroelectric project at Chungthang. Following this disaster, widespread claims emerged regarding whether Synthetic Aperture Radar (SAR) Interferometry (InSAR) could have provided operational early warning by detecting pre-collapse slope acceleration from single pre-event satellite passes. 
 
-This monograph establishes an objective, mathematically rigorous assessment of the geometric observability and physical detection limits of Sentinel-1 C-band InSAR across the South Lhonak basin. Using the 30 m Copernicus GLO-30 Digital Elevation Model (DEM) and calibrated 3D radar look-vectors from ASF HyP3, we formulate an analytical forward projection model that maps gravity-driven slope motion onto the radar line-of-sight (LOS) across opposing orbital geometries: Descending Track 048 and Ascending Track 012. Resolving earlier sign-convention discrepancies, we demonstrate that the active failure scarp faces South-Southeast (circular mean aspect $151.1^\circ$, dispersion $0.05$), aligning within $26.2^\circ$ of the nearest southern lake shore. Because the scarp slopes downward while the radar look-vector points upward to the sensor, the geometric projection factor is negative ($P_{\text{desc}} = -0.276$, $P_{\text{asc}} = -0.366$). 
+This monograph establishes an objective, mathematically rigorous assessment of the geometric observability and physical detection limits of Sentinel-1 C-band InSAR across the South Lhonak basin. Using the 30 m Copernicus GLO-30 Digital Elevation Model (DEM) and calibrated 3D radar look-vectors from ASF HyP3, we formulate an analytical forward projection model that maps gravity-driven slope motion onto the radar line-of-sight (LOS) across opposing orbital geometries: Descending Track 048 and Ascending Track 012. Resolving earlier sign-convention discrepancies, we demonstrate that the broad scarp analysis polygon exhibits a circular mean aspect of $151.1^\circ$ (dispersion $0.40$), while the steep active failure face ($\ge 25^\circ$) faces directly South with circular mean aspect $174.7^\circ$ ($174.67^\circ$, dispersion $0.034$), aligning within $2.6^\circ$ of the nearest southern lake shore. Because the steep scarp face slopes downward ($34.5^\circ$) while the radar look-vector points upward to the sensor, the geometric projection factors are negative ($P_{\text{desc}} = -0.276$, $P_{\text{asc}} = -0.366$). 
 
-We introduce a four-class terrain categorization scheme (*Blind*, *Low Sensitivity*, *Decorrelated*, *Observable*). Under combined dual-track observation, **87.0%** of the active scarp face is observable at standard geometric sensitivity ($R = |P| \ge 0.3$), rising to **95.0%** at $R \ge 0.2$. However, empirical spatial noise evaluated across 119 stable bedrock reference patches reveals a $2\sigma$ noise floor of $2.20–6.16\text{ mm}$, imposing a single 12-day pair minimum detectable slope velocity of $200–500\text{ mm/yr}$ ($0.2–0.5\text{ m/yr}$). Joint two-track velocity inversion across the steep scarp ($\ge 25^\circ$, 235 DEM pixels, $\sim 31–33$ independent 80 m SAR resolution cells) yields $[-651, +106]\text{ mm/yr}$ (95% CI) under the conservative raw spatial null model, statistically containing zero motion. While a planar-detrended model yields an apparent signal ($-390 \pm 105\text{ mm/yr}$ at $3.7\sigma$), its vector orientation is directed *upslope*, which is physically implausible as gravitational creep and characteristic of unmodelled atmospheric phase screens.
+We introduce a four-class terrain categorization scheme (*Blind*, *Low Sensitivity*, *Decorrelated*, *Observable*). Under combined dual-track observation, **87.0%** of the full scarp analysis box (and **93.6%** of the steep active failure face $\ge 25^\circ$) is observable at standard geometric sensitivity ($R = |P| \ge 0.3$), rising to **95.0%** (100% on steep face) at $R \ge 0.2$. However, empirical spatial noise evaluated across 116–121 stable bedrock reference patches reveals a $2\sigma$ noise floor of $2.20–6.16\text{ mm}$, imposing a single 12-day pair steep-scarp minimum detectable slope velocity of $240–590\text{ mm/yr}$ ($0.24–0.59\text{ m/yr}$). Joint two-track velocity inversion across the steep scarp ($\ge 25^\circ$, 235 DEM pixels, $\sim 31–33$ independent 80 m SAR resolution cells) is model-dependent: it yields $[-651, +106]\text{ mm/yr}$ (95% CI) under the conservative raw spatial null model, statistically containing zero motion, while a planar-detrended model yields an apparent signal ($-390 \pm 105\text{ mm/yr}$ at $3.7\sigma$) directed *upslope*, characteristic of residual stratified atmosphere or unwrapping biases.
 
-Reconciling our findings with multi-year Persistent Scatterer InSAR (PS-InSAR) literature (Mohanty et al., 2026), which established a true background moraine creep rate of $\sim 22\text{ mm/yr}$, we demonstrate that **true precursory deformation is an order of magnitude smaller than the single-pair InSAR noise floor ($22\text{ mm/yr} \ll 200–500\text{ mm/yr}$)**. Consequently, single interferometric pairs cannot be used for operational early warning. We conclude that robust cryospheric hazard surveillance requires multi-temporal time-series processing (SBAS/PS-InSAR) and multi-frequency integration with L-band radar (NISAR).
+Because slow pre-collapse permafrost and moraine creep operates at centimetres per year ($< 50\text{ mm/yr}$), **true precursory deformation is an order of magnitude smaller than the single-pair InSAR noise floor ($< 50\text{ mm/yr} \ll 240–590\text{ mm/yr}$)**. Consequently, single interferometric pairs cannot be used for operational early warning. We conclude that robust cryospheric hazard surveillance requires multi-temporal time-series processing (SBAS/PS-InSAR) and multi-frequency integration with L-band radar (NISAR).
 
 **Keywords:** Sentinel-1 InSAR, South Lhonak Lake, Glacial Lake Outburst Flood (GLOF), Slope Measurability, Radar Geometry, Atmospheric Phase Noise, Cryospheric Hazards.
 
@@ -211,12 +211,12 @@ Because the observed spatial dispersion ($1\sigma \approx 2.66–3.08\text{ mm}$
 For a single interferogram spanning temporal baseline $\Delta t$ ($12\text{ days} = 0.03288\text{ yr}$) with geometric sensitivity $R$, the minimum slope velocity detectable at 95% confidence ($2\sigma$) is:
 $$v_{\text{min\_det}} = \frac{2 \sigma_{\text{spatial}}}{R \cdot \Delta t}$$
 
-* **Descending Track 048 ($R = 0.309$):**
-  $$v_{\text{min\_det}} = \frac{2.20\text{ mm}}{0.309 \times 0.03288\text{ yr}} \approx \mathbf{217\text{ mm/yr}} \text{ (Detrended)} \quad \text{to} \quad \frac{5.32\text{ mm}}{0.309 \times 0.03288\text{ yr}} \approx \mathbf{524\text{ mm/yr}} \text{ (Raw)}$$
-* **Ascending Track 012 ($R = 0.449$):**
-  $$v_{\text{min\_det}} = \frac{4.94\text{ mm}}{0.449 \times 0.03288\text{ yr}} \approx \mathbf{335\text{ mm/yr}} \text{ (Detrended)} \quad \text{to} \quad \frac{6.16\text{ mm}}{0.449 \times 0.03288\text{ yr}} \approx \mathbf{418\text{ mm/yr}} \text{ (Raw)}$$
+* **Descending Track 048 ($R_{\text{steep}} = 0.276$):**
+  $$v_{\text{min\_det}} = \frac{2.20\text{ mm}}{0.2757 \times 0.03288\text{ yr}} \approx \mathbf{243\text{ mm/yr}} \text{ (Detrended)} \quad \text{to} \quad \frac{5.32\text{ mm}}{0.2757 \times 0.03288\text{ yr}} \approx \mathbf{587\text{ mm/yr}} \text{ (Raw)}$$
+* **Ascending Track 012 ($R_{\text{steep}} = 0.366$):**
+  $$v_{\text{min\_det}} = \frac{4.94\text{ mm}}{0.3658 \times 0.03288\text{ yr}} \approx \mathbf{411\text{ mm/yr}} \text{ (Detrended)} \quad \text{to} \quad \frac{6.16\text{ mm}}{0.3658 \times 0.03288\text{ yr}} \approx \mathbf{513\text{ mm/yr}} \text{ (Raw)}$$
 
-**Fundamental Finding:** Single 12-day Sentinel-1 pairs possess an intrinsic velocity detection threshold of **$200–500\text{ mm/yr}$ ($0.2–0.5\text{ m/yr}$)**.
+**Fundamental Finding:** Single 12-day Sentinel-1 pairs possess an intrinsic velocity detection threshold of **$240–590\text{ mm/yr}$ ($0.24–0.59\text{ m/yr}$)** on the steep scarp face.
 
 ---
 
@@ -224,9 +224,9 @@ $$v_{\text{min\_det}} = \frac{2 \sigma_{\text{spatial}}}{R \cdot \Delta t}$$
 
 ### 5.1 Scarp Topography & Lake-Facing Aspect Validation
 The failure scarp analysis polygon spans 523 DEM pixels (43.6 ha) at a mean elevation of 5,350 m asl. Topographic decomposition demonstrates:
-* **Circular Mean Aspect:** The downslope vector exhibits a circular mean aspect of **$151.1^\circ$ (SSE)** with an angular dispersion of $0.05$.
-* **Lake-Facing Alignment:** This vector directly faces the lake basin, aligning within **$26.2^\circ$** of the nearest southern lake shore (bearing $177.3^\circ$).
-* **Slope Bimodal Distribution:** Across the entire polygon, 39.8% of pixels reside on the flatter upper bench ($< 15^\circ$, mean slope $21.8^\circ$). Filtering for steep active slopes ($\ge 25^\circ$) isolates 235 pixels (44.9% of the area; $\sim 31–33$ independent 80 m SAR resolution cells) with a mean slope of **$32.8^\circ$**.
+* **Circular Mean Aspect:** The broad analysis polygon downslope vector exhibits a circular mean aspect of **$151.12^\circ$ (SSE)** with an angular dispersion of $0.4032$. When restricted to the steep active failure face ($\ge 25^\circ$), the circular mean aspect shifts directly South to **$174.7^\circ$ ($174.67^\circ$)** with an extremely tight angular dispersion of **$0.0338$**.
+* **Lake-Facing Alignment:** This vector directly faces the lake basin, aligning within **$2.6^\circ$** on the steep active scarp face (and $26.2^\circ$ across the broader analysis box) of the nearest southern lake shore (bearing $177.3^\circ$).
+* **Slope Bimodal Distribution:** Across the entire polygon, 39.8% of pixels reside on the flatter upper bench ($< 15^\circ$, polygon-wide mean slope $21.8^\circ$). Filtering for steep active slopes ($\ge 25^\circ$) isolates 235 pixels (44.9% of the area; **$\sim 31$ independent 80 m SAR resolution cells** based on native DEM cell area $844.2\text{ m}^2$, or $33.05$ on a nominal $30\times 30\text{ m}$ grid) with a mean slope of **$34.45^\circ$** ($34.447^\circ$).
 
 ### 5.2 Resolution of Descending Track Sign-Cancellation
 Across the unmasked box, Descending Track 048 displays sign cancellation (38.8% positive, 61.2% negative; mean $P = -0.034$) because the rounded upper crest tilts slightly northward toward the descending sensor. Isolating the steep failure face ($\ge 25^\circ$) resolves this ambiguity:
@@ -286,6 +286,15 @@ $$\hat{v}_{\text{slope}} = (\mathbf{A}^T \mathbf{\Sigma}^{-1} \mathbf{A})^{-1} \
 | **CTRL-01 Spur (Single)** | **Raw Spatial Null** | $\mathbf{-248 \pm 193\text{ mm/yr}}$ | **$[-626, +131]\text{ mm/yr}$** | **Yes** | Consistent with zero motion; upper bound on creep $< 0.13\text{ m/yr}$. |
 | | **Planar Detrended** | $\mathbf{-327 \pm 105\text{ mm/yr}}$ | **$[-532, -122]\text{ mm/yr}$** | **No** | Apparent signal at $3.1\sigma$; vector points *upslope*. |
 
+#### Scientific Interpretation & Cause Attribution
+1. **Model Dependence:** The inversion result is fundamentally model-dependent. Under the conservative raw spatial noise model, zero motion is contained within the 95% confidence intervals ($[-651, +106]\text{ mm/yr}$ and $[-626, +131]\text{ mm/yr}$).
+2. **Apparent Upslope Motion:** Under the ramp-removed (detrended) null model, an apparent signal appears at $3.1 - 3.7\sigma$ (Ensemble: $-390 \pm 105\text{ mm/yr}$; CTRL-01: $-327 \pm 105\text{ mm/yr}$). This apparent signal is directed **upslope ($v < 0$)**, which is physically implausible as gravitational creep.
+3. **Cause is Undetermined:** The offset has the same sign across all three pilot pairs (including the May 2023 pre-monsoon dry season baseline), which does not support purely random noise, but three samples are too few to conclude (same-signed offsets occur by chance ~25% of the time, and the September windows share dates). However, candidate causes cannot be discriminated from two pilot pairs:
+   - Systematic valley-versus-ridge stratified atmospheric phase delay across steep alpine topography ($5200 - 5300\text{ m}$ masl);
+   - Reference-pixel network drift or phase unwrapping biases;
+   - An estimator / null model mismatch: the spatial null is the pairwise spread between point bedrock patches, but it is applied to a polygon mean minus an ensemble mean.
+4. **Defensible Conclusion:** **Two pilot pairs constrain slope-parallel creep only to within a few tenths of a metre per year.** Single pilot pairs cannot detect slow precursory creep.
+
 ![Figure 3: Scarp Projections and Joint Velocity Inversions](file:///e:/Personal/iirs/results/fig3_minimum_detectable_motion_and_plausibility.png)  
 *Figure 3: (Left) Frequency distributions of signed projection factors ($P = \hat{\mathbf{d}} \cdot \hat{\mathbf{s}}$) over the steep active scarp ($\ge 25^\circ$) for Descending Track 048 and Ascending Track 012. (Right) Joint ascending-descending slope velocity inversions showing 95% confidence intervals across reference frames and noise models.*
 
@@ -311,11 +320,11 @@ To contextualize our findings within the broader literature, we compare our quan
 
 | Study Citation | InSAR Method & Dataset | Target Feature & Mechanism | Reported Deformation / Failure Parameter | Reconciliation with This Study |
 | :--- | :--- | :--- | :--- | :--- |
-| **Mohanty et al. (2026)**<br>*Scientific Reports* [16:9741](https://www.nature.com/articles/s41598-026-35895-7) | PS-InSAR stack (64 Sentinel-1 SLC scenes, 2017–2021) | Left lateral moraine; permafrost & buried ice melting | Long-term subsidence rate: **~22 mm/yr** (~2.2 cm/yr); **45.4 MCM** total collapse | Provides the true physical benchmark ($22\text{ mm/yr}$) for pre-event moraine creep. |
+| **Mohanty et al. (2026)**<br>*Scientific Reports* [16:9741](https://www.nature.com/articles/s41598-026-35895-7) | Satellite event reconstruction & volume modeling | Left lateral moraine failure trigger | Collapse volume: **38.31 MCM** debris + **7.11 MCM** ice calving (**45.4 MCM** total) | Identifies left lateral moraine failure source mass triggering impulse waves. |
 | **Yu et al. (2024)**<br>*Remote Sensing* [16(13):2307](https://www.mdpi.com/2072-4292/16/13/2307) | SBAS-InSAR stack (83 asc + 79 desc, 2021–2023) | Lateral moraine slope | Pre-event progressive displacement identified along scarp | Corroborates multi-year deformation, but lacks false-alarm testing or 3D look-vector bounds. |
 | **Patlolla et al. (2025)**<br>*J. Water & Climate Change* [16(1):127](https://iwaponline.com/jwcc/article/16/1/127/106444/GLOF-in-the-South-Lhonak-Lake-India) | Multi-sensor single-image photogrammetric DEMs | Landslide scarp differencing | Debris into lake: **11.50 MCM**; Water volume loss: **43.21 MCM** | Verifies that lateral slope collapse displaced ~43 MCM of lake water, creating the GLOF. |
 | **Remya et al. (2025)**<br>*Environ. Res. Commun.* [7:115026](https://publications.azimpremjiuniversity.edu.in/6933/1/913.%20S_N_2025_Environ._Res._Commun._7_115026.pdf) | Multi-decadal optical (10 satellite missions) | Glacier-lake-moraine interface | 12x lake growth; calving icebergs weakened lateral moraine | Identifies long-term cryospheric preparation leading to slope detachment. |
-| **This Study (2026)**<br>*IIRS Technical Report* | Dual-track Sentinel-1 forward projection + noise audit | Geometric measurability & spatial noise bounds | 95% CI: **$[-651, +106]\text{ mm/yr}$**; Detection limit: **$200–500\text{ mm/yr}$** | Resolves why single pairs cannot detect $22\text{ mm/yr}$ creep and bounds true observability. |
+| **This Study (2026)**<br>*IIRS Technical Report* | Dual-track Sentinel-1 forward projection + noise audit | Geometric measurability & spatial noise bounds | 95% CI: **$[-651, +106]\text{ mm/yr}$**; Steep detection limit: **$240–590\text{ mm/yr}$** | Demonstrates single pairs are model-dependent and blind to slow creep ($< 50\text{ mm/yr}$). |
 
 ### 7.2 The Resolution of the Paradox: Why Single Pairs Cannot Resolve Precursory Creep
 The apparent conflict between studies claiming precursory detection and our finding of no statistically significant single-pair motion is resolved by examining the signal-to-noise ratio:
@@ -324,22 +333,22 @@ The apparent conflict between studies claiming precursory detection and our find
 +-----------------------------------------------------------------------------------------+
 |                  THE INFERENTIAL GAP: PRECURSORY CREEP VS. NOISE FLOOR                  |
 |                                                                                         |
-|  True Physical Creep Rate (Mohanty et al., 2026):                                       |
-|  [================] ~22 mm/yr (0.022 m/yr)                                             |
+|  Typical Pre-Collapse Moraine Creep Rate (High Himalayan Cryosphere):                   |
+|  [================] < 50 mm/yr (< 0.05 m/yr)                                            |
 |                                                                                         |
-|  Single-Pair InSAR Detection Floor (This Study, 95% CI):                                |
+|  Single-Pair InSAR Detection Floor (This Study, 95% CI on Steep Scarp):                 |
 |  [===================================================================================]   |
-|  200 to 500 mm/yr (0.20 to 0.50 m/yr)                                                    |
+|  240 to 590 mm/yr (0.24 to 0.59 m/yr)                                                   |
 |                                                                                         |
-|  CONCLUSION: True precursory creep is ~10-25x smaller than single-pair noise floor!     |
-|  Single interferometric pairs are physically blind to 22 mm/yr moraine creep.           |
+|  CONCLUSION: Typical precursory creep is ~5-12x smaller than single-pair noise floor!   |
+|  Single interferometric pairs are physically blind to slow moraine creep.               |
 +-----------------------------------------------------------------------------------------+
 ```
 
-1. **True Precursory Velocity:** Multi-year PS-InSAR stacks (64 scenes over 4 years) achieve millimetric velocity precision ($\sigma_v \approx 2–4\text{ mm/yr}$) through temporal averaging, resolving a true background creep rate of **$\sim 22\text{ mm/yr}$**.
-2. **Single-Pair Atmospheric Limits:** A single 12-day Sentinel-1 pair possesses an intrinsic $2\sigma$ spatial noise floor of $2.2–6.2\text{ mm}$. Scaled by sensitivity ($R \approx 0.31–0.45$) and baseline duration ($\Delta t = 12\text{ days}$), the minimum detectable velocity is **$200–500\text{ mm/yr}$**.
-3. **Physical Consequence:** Because $22\text{ mm/yr} \ll 200–500\text{ mm/yr}$, pre-collapse moraine creep is completely masked by atmospheric phase delays on individual interferograms.
-4. **Critique of Single-Pair "Early Warning" Claims:** Any study claiming to detect pre-collapse moraine acceleration from a single pre-event interferogram has confused turbulent atmospheric delay or reference drift with real ground motion. Under rigorous hypothesis testing, single-pair observations are statistically indistinguishable from zero motion ($[-651, +106]\text{ mm/yr}$).
+1. **Precursory Velocity Scale:** Multi-year InSAR time series (e.g. Yu et al., 2024) measure slow, cumulative slope displacements operating at centimetres per year ($< 50\text{ mm/yr}$).
+2. **Single-Pair Atmospheric Limits:** A single 12-day Sentinel-1 pair possesses an intrinsic $2\sigma$ spatial noise floor of $2.2–6.2\text{ mm}$. Scaled by steep-face sensitivity ($R_{\text{steep}} \approx 0.28–0.37$) and baseline duration ($\Delta t = 12\text{ days}$), the minimum detectable velocity on the steep scarp face is **$240–590\text{ mm/yr}$** ($0.24–0.59\text{ m/yr}$).
+3. **Physical Consequence:** Because $< 50\text{ mm/yr} \ll 240–590\text{ mm/yr}$, pre-collapse moraine creep is completely masked by atmospheric phase delays on individual interferograms.
+4. **Critique of Single-Pair "Early Warning" Claims:** Any study claiming to detect pre-collapse moraine acceleration from a single pre-event interferogram has confused turbulent atmospheric delay, systematic valley-vs-ridge stratified phase screens, or reference drift with real ground motion. Under rigorous hypothesis testing, single-pair observations are model-dependent: zero is contained in the conservative raw spatial null ($[-651, +106]\text{ mm/yr}$), while the detrended null yields an apparent signal directed *upslope*. Single pairs cannot prove or discriminate slow slope creep.
 
 ---
 
@@ -402,7 +411,7 @@ tests/test_vector_features.py::test_sar_backscatter_water_fraction PASSED [ 88%]
 tests/test_vector_features.py::test_scarp_and_breach_separation PASSED   [ 94%]
 tests/test_vector_features.py::test_ctrl02_decorrelated_dropped PASSED   [100%]
 
-============================= 18 passed in 1.58s ==============================
+======================== 19 passed, 2 skipped in 1.10s ========================
 ```
 
 * **Physical Invariants Verified:**

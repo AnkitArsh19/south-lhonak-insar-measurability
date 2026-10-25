@@ -35,7 +35,7 @@ from shapely.geometry import shape, Point
 from shapely.ops import nearest_points
 from scipy.ndimage import map_coordinates
 
-ROOT = Path("e:/Personal/iirs")
+ROOT = Path(__file__).resolve().parents[2]
 SAR_DIR = ROOT / "data" / "sar"
 DEM_DIR = ROOT / "data" / "dem"
 OUT_DIR = ROOT / "results"
@@ -252,6 +252,7 @@ p_asc_dist["negative_count"] = int(np.sum(P_asc_scarp < 0))
 p_asc_dist["negative_pct"] = float(np.mean(P_asc_scarp < 0) * 100.0)
 
 # 10. Sensitivity Threshold Analysis for "Observable" Class across R in {0.2, 0.3, 0.5}
+steep_scarp_mask_pre = scarp_mask & (slope_deg >= 25.0)
 threshold_sensitivity = {}
 for r_th in [0.2, 0.3, 0.5]:
     obs_d = (~blind_d) & (R_desc >= r_th) & (c_d >= 0.3) & (inc_desc <= 70.0)
@@ -262,6 +263,11 @@ for r_th in [0.2, 0.3, 0.5]:
             "Descending_Observable_pct": float(np.mean(obs_d[scarp_mask]) * 100.0),
             "Ascending_Observable_pct":  float(np.mean(obs_a[scarp_mask]) * 100.0),
             "Combined_Observable_pct":   float(np.mean(obs_comb[scarp_mask]) * 100.0)
+        },
+        "steep_scarp": {
+            "Descending_Observable_pct": float(np.mean(obs_d[steep_scarp_mask_pre]) * 100.0),
+            "Ascending_Observable_pct":  float(np.mean(obs_a[steep_scarp_mask_pre]) * 100.0),
+            "Combined_Observable_pct":   float(np.mean(obs_comb[steep_scarp_mask_pre]) * 100.0)
         },
         "entire_10km_aoi": {
             "Descending_Observable_pct": float(np.mean(obs_d) * 100.0),
@@ -385,11 +391,20 @@ v_min_comb_det[np.isinf(v_min_comb_det)] = np.nan
 # The full scarp analysis box (523 pixels) contains both the steep active flank and a flat moraine
 # bench (< 15 deg, 39.8% of pixels) where the downslope direction is ill-defined and Descending projections
 # cancel out. Masking to slopes >= 25 deg isolates the true steep moraine scarp face (235 pixels,
-# equivalent to ~31-33 independent 80 m SAR resolution cells), with mean slope 32.8 deg and aspect 146.8 deg.
+# equivalent to ~31-33 independent 80 m SAR resolution cells), with mean slope 34.45 deg and aspect 174.67 deg.
 
 steep_scarp_mask = scarp_mask & (slope_deg >= 25.0)
 n_steep = int(np.sum(steep_scarp_mask))
-approx_sar_pixels = float((n_steep * 30.0 * 30.0) / (80.0 * 80.0))
+cell_area_m2 = dx_m * dy_m  # exact DEM cell area ~844.21 m^2
+approx_sar_pixels_exact = float((n_steep * cell_area_m2) / (80.0 * 80.0))  # ~31.00
+approx_sar_pixels_nominal = float((n_steep * 30.0 * 30.0) / (80.0 * 80.0)) # ~33.05
+
+aspect_steep = aspect_compass[steep_scarp_mask]
+sin_mean_steep = float(np.mean(np.sin(np.deg2rad(aspect_steep))))
+cos_mean_steep = float(np.mean(np.cos(np.deg2rad(aspect_steep))))
+circ_mean_aspect_steep = float((np.rad2deg(np.arctan2(sin_mean_steep, cos_mean_steep))) % 360.0)
+circ_dispersion_steep = float(1.0 - np.sqrt(sin_mean_steep**2 + cos_mean_steep**2))
+steep_mean_slope = float(np.mean(slope_deg[steep_scarp_mask]))
 
 # Sample LOS displacements from unwrapped phase (d_los = -lambda / (4*pi) * unw_phase * 1000 in mm)
 lambda_s1 = 0.055465763
@@ -420,7 +435,8 @@ y_asc_ctrl  = mean_los_asc_steep - ref_ctrl_asc
 P_desc_steep = float(np.mean(proj_desc[steep_scarp_mask]))
 P_asc_steep  = float(np.mean(proj_asc[steep_scarp_mask]))
 
-print(f"Steep scarp (slope >= 25 deg): {n_steep} pixels ({n_steep/n_scarp*100.0:.1f}%), ~{approx_sar_pixels:.1f} SAR cells")
+print(f"Steep scarp (slope >= 25 deg): {n_steep} pixels ({n_steep/n_scarp*100.0:.1f}%), ~{approx_sar_pixels_exact:.1f} SAR cells")
+print(f"Steep scarp mean slope: {steep_mean_slope:.2f} deg, aspect: {circ_mean_aspect_steep:.2f} deg, disp: {circ_dispersion_steep:.4f}")
 print(f"Mean signed P: Desc = {P_desc_steep:.4f}, Asc = {P_asc_steep:.4f}")
 print(f"Offsets vs Ensemble: Desc = {y_desc_ens:+.3f} mm, Asc = {y_asc_ens:+.3f} mm")
 print(f"Offsets vs CTRL-01:  Desc = {y_desc_ctrl:+.3f} mm, Asc = {y_asc_ctrl:+.3f} mm")
@@ -449,6 +465,20 @@ inv_ens_det  = solve_joint_inversion(P_desc_steep, P_asc_steep, y_desc_ens, y_as
 inv_ctrl_raw = solve_joint_inversion(P_desc_steep, P_asc_steep, y_desc_ctrl, y_asc_ctrl, sigma_raw_desc, sigma_raw_asc)
 inv_ctrl_det = solve_joint_inversion(P_desc_steep, P_asc_steep, y_desc_ctrl, y_asc_ctrl, sigma_det_desc, sigma_det_asc)
 
+# Steep-face detection limits (v_min = 2*sigma / |P_steep| * (365.25 / 12))
+steep_limits = {
+    "descending_Track48": {
+        "R_steep": abs(P_desc_steep),
+        "raw_null_sigma_2.66mm": float((2.0 * sigma_raw_desc / abs(P_desc_steep)) * scale_yr),
+        "detrended_null_sigma_1.10mm": float((2.0 * sigma_det_desc / abs(P_desc_steep)) * scale_yr)
+    },
+    "ascending_Track12": {
+        "R_steep": abs(P_asc_steep),
+        "raw_null_sigma_3.08mm": float((2.0 * sigma_raw_asc / abs(P_asc_steep)) * scale_yr),
+        "detrended_null_sigma_2.47mm": float((2.0 * sigma_det_asc / abs(P_asc_steep)) * scale_yr)
+    }
+}
+
 # 15. Save Comprehensive JSON Metrics
 measurability_results = {
     "project": "Observability & Measurability of Sentinel-1 InSAR for Slope Monitoring Around South Lhonak Lake",
@@ -460,20 +490,26 @@ measurability_results = {
         "bearing_to_lake_centroid_deg": float(bearing_to_lake_centroid),
         "scarp_circular_mean_aspect_deg": circ_mean_aspect,
         "scarp_circular_angular_dispersion": circ_dispersion,
+        "steep_scarp_circular_mean_aspect_deg": circ_mean_aspect_steep,
+        "steep_scarp_circular_angular_dispersion": circ_dispersion_steep,
         "aspect_shore_bearing_difference_deg": float(abs(circ_mean_aspect - bearing_to_nearest_shore)),
+        "steep_aspect_shore_bearing_difference_deg": float(abs(circ_mean_aspect_steep - bearing_to_nearest_shore)),
         "aspect_lake_centroid_difference_deg": float(abs(circ_mean_aspect - bearing_to_lake_centroid)),
         "morphological_interpretation": (
-            "The failure scarp faces South-Southeast (circular mean aspect 151.1 deg, dispersion 0.05). "
-            "This downslope vector faces the lake, aligning within 26.2 deg of the nearest southern lake shore "
-            "(bearing 177.3 deg from the static 2020/21 lake mask). It differs from the bearing to the lake centroid "
-            "(236.7 deg, WSW), because the elongated glacial lake extends westward toward the glacier snout."
+            "The full scarp polygon circular mean aspect is 151.1 deg (dispersion 0.40), facing South-Southeast toward "
+            "the lake and aligning within 26.2 deg of the nearest southern lake shore (bearing 177.3 deg from the digitized "
+            "pre-event lake polygon). When restricted to the steep active failure face (slope >= 25 deg), the circular mean "
+            "aspect shifts directly South to 174.7 deg with a very tight angular dispersion of 0.034, aligning within 2.6 deg "
+            "of the nearest lake shore. Both differ from the bearing to the lake centroid (236.7 deg, WSW) because the "
+            "glacial lake extends westward toward the glacier snout."
         )
     },
     "scarp_topography_and_slope_distribution": {
         "pixel_count_30m": n_scarp,
         "steep_scarp_pixel_count_30m": n_steep,
         "steep_scarp_fraction_pct": float(n_steep / n_scarp * 100.0),
-        "approx_independent_80m_sar_pixels": approx_sar_pixels,
+        "approx_independent_80m_sar_pixels": approx_sar_pixels_exact,
+        "approx_independent_80m_sar_pixels_nominal_grid": approx_sar_pixels_nominal,
         "elevation_mean_masl": float(np.mean(dem_aoi[scarp_mask])),
         "slope_distribution": slope_dist,
         "slope_bins": slope_bins_summary,
@@ -481,7 +517,8 @@ measurability_results = {
             "The approximate analysis box (43.6 ha) contains both the steep active moraine flank (35-39 deg, "
             "comprising 28.5% of pixels) and the flatter moraine crest/bench (<15 deg, comprising 39.8% of pixels), "
             "yielding a polygon-wide mean slope of 21.8 deg. Restricting analysis to slopes >= 25 deg isolates "
-            "the steep active scarp face (235 pixels, ~31-33 independent 80 m SAR pixels, mean slope 32.8 deg)."
+            "the steep active scarp face (235 pixels, ~31 independent 80 m SAR resolution cells based on the native "
+            "DEM cell area of 844.2 m^2, or ~33 cells on a nominal 30x30 m grid; mean slope 34.45 deg)."
         )
     },
     "scarp_signed_projections_and_distributions": {
@@ -491,6 +528,7 @@ measurability_results = {
             "descending_Track48": P_desc_steep,
             "ascending_Track12": P_asc_steep
         },
+        "steep_scarp_detection_limits_mm_yr": steep_limits,
         "sign_cancellation_note": (
             "Descending Track 48 exhibits sign-cancelling projections across the full box (38.8% positive, 61.2% "
             "negative; mean P = -0.034, but mean |R| = 0.309) because the flat upper bench curves toward the sensor. "
@@ -499,6 +537,7 @@ measurability_results = {
         )
     },
     "sensitivity_threshold_analysis": threshold_sensitivity,
+    "steep_scarp_detection_limits_mm_yr": steep_limits,
     "observability_class_percentages_at_R_0_3": {
         "scarp_analysis_box": {
             "Descending_Track48": scarp_stats_desc,
@@ -515,9 +554,10 @@ measurability_results = {
     "joint_two_track_velocity_inversions": {
         "steep_scarp_single_inversion": {
             "sample_size_30m_dem_pixels": n_steep,
-            "approx_independent_80m_sar_pixels": approx_sar_pixels,
-            "steep_scarp_mean_slope_deg": float(np.mean(slope_deg[steep_scarp_mask])),
-            "steep_scarp_mean_aspect_deg": float(circ_mean_aspect),
+            "approx_independent_80m_sar_pixels": approx_sar_pixels_exact,
+            "steep_scarp_mean_slope_deg": steep_mean_slope,
+            "steep_scarp_mean_aspect_deg": circ_mean_aspect_steep,
+            "steep_scarp_mean_dispersion": circ_dispersion_steep,
             "steep_scarp_mean_P_desc": P_desc_steep,
             "steep_scarp_mean_P_asc": P_asc_steep,
             "relative_to_ensemble_reference": {
@@ -532,11 +572,15 @@ measurability_results = {
         "scientific_conclusion": (
             "The steep-scarp joint inversion is model-dependent. Under the conservative raw spatial noise model, "
             "zero motion is contained in the 95% confidence interval (Ensemble: [-651, +106] mm/yr; CTRL-01: [-626, +131] mm/yr). "
-            "Under the ramp-removed (detrended) null model, an apparent signal appears at ~3.7-sigma (Ensemble: -390 +/- 105 mm/yr; "
+            "Under the ramp-removed (detrended) null model, an apparent signal appears at ~3.1-3.7-sigma (Ensemble: -390 +/- 105 mm/yr; "
             "CTRL-01: -327 +/- 105 mm/yr). This apparent signal is directed upslope (v < 0), which is physically implausible as "
-            "gravitational slope creep and is consistent with residual atmospheric phase delays or reference-pixel drift across "
-            "steep alpine relief, but two pilot pairs cannot resolve this. Single pilot pairs cannot detect slope creep below "
-            "roughly 0.2 to 0.5 m/yr, and the two pilot pairs constrain slope-parallel creep only to within a few tenths of a metre per year."
+            "gravitational slope creep. The cause is undetermined: an apparent upslope offset appears across all three pilot pairs "
+            "(including May 2023 dry season), which does not support purely random noise, but three samples are too few to conclude "
+            "(same-signed offsets occur by chance ~25% of the time, and the September windows share dates). Candidate causes "
+            "(residual stratified atmosphere across the 5200-5300 m ridge, reference-pixel network drift, phase unwrapping bias, "
+            "or a null/estimator mismatch between pairwise point-patch spread and polygon-mean differential offsets) cannot be "
+            "discriminated from two pilot pairs. Single pilot pairs cannot detect slope creep below roughly 0.2 to 0.6 m/yr, and "
+            "the two pilot pairs constrain slope-parallel creep only to within a few tenths of a metre per year."
         )
     }
 }

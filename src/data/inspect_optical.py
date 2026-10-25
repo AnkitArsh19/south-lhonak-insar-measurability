@@ -2,7 +2,7 @@ import struct
 from pathlib import Path
 from PIL import Image
 
-folder = Path("e:/Personal/iirs/data/optical/sentinel2")
+folder = Path(__file__).resolve().parents[2] / "data" / "optical" / "sentinel2"
 
 for f in sorted(folder.glob("*.tiff")):
     print(f"\n==========================================")

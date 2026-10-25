@@ -11,15 +11,19 @@
     "bearing_to_lake_centroid_deg": 236.71594500463019,
     "scarp_circular_mean_aspect_deg": 151.12291385339424,
     "scarp_circular_angular_dispersion": 0.40318605067178426,
+    "steep_scarp_circular_mean_aspect_deg": 174.67372353355495,
+    "steep_scarp_circular_angular_dispersion": 0.03376220410723063,
     "aspect_shore_bearing_difference_deg": 26.194683160344766,
+    "steep_aspect_shore_bearing_difference_deg": 2.6438734801840553,
     "aspect_lake_centroid_difference_deg": 85.59303115123595,
-    "morphological_interpretation": "The failure scarp faces South-Southeast (circular mean aspect 151.1 deg, dispersion 0.05). This downslope vector faces the lake, aligning within 26.2 deg of the nearest southern lake shore (bearing 177.3 deg from the static 2020/21 lake mask). It differs from the bearing to the lake centroid (236.7 deg, WSW), because the elongated glacial lake extends westward toward the glacier snout."
+    "morphological_interpretation": "The full scarp polygon circular mean aspect is 151.1 deg (dispersion 0.40), facing South-Southeast toward the lake and aligning within 26.2 deg of the nearest southern lake shore (bearing 177.3 deg from the digitized pre-event lake polygon). When restricted to the steep active failure face (slope >= 25 deg), the circular mean aspect shifts directly South to 174.7 deg with a very tight angular dispersion of 0.034, aligning within 2.6 deg of the nearest lake shore. Both differ from the bearing to the lake centroid (236.7 deg, WSW) because the glacial lake extends westward toward the glacier snout."
   },
   "scarp_topography_and_slope_distribution": {
     "pixel_count_30m": 523,
     "steep_scarp_pixel_count_30m": 235,
     "steep_scarp_fraction_pct": 44.93307839388145,
-    "approx_independent_80m_sar_pixels": 33.046875,
+    "approx_independent_80m_sar_pixels": 30.998300116208643,
+    "approx_independent_80m_sar_pixels_nominal_grid": 33.046875,
     "elevation_mean_masl": 5350.0722945671005,
     "slope_distribution": {
       "mean": 21.79871664247851,
@@ -36,7 +40,7 @@
       "25_35_deg_pct": 16.44359464627151,
       "35_45_deg_pct": 28.489483747609945
     },
-    "topographic_interpretation": "The approximate analysis box (43.6 ha) contains both the steep active moraine flank (35-39 deg, comprising 28.5% of pixels) and the flatter moraine crest/bench (<15 deg, comprising 39.8% of pixels), yielding a polygon-wide mean slope of 21.8 deg. Restricting analysis to slopes >= 25 deg isolates the steep active scarp face (235 pixels, ~31-33 independent 80 m SAR pixels, mean slope 32.8 deg)."
+    "topographic_interpretation": "The approximate analysis box (43.6 ha) contains both the steep active moraine flank (35-39 deg, comprising 28.5% of pixels) and the flatter moraine crest/bench (<15 deg, comprising 39.8% of pixels), yielding a polygon-wide mean slope of 21.8 deg. Restricting analysis to slopes >= 25 deg isolates the steep active scarp face (235 pixels, ~31 independent 80 m SAR resolution cells based on the native DEM cell area of 844.2 m^2, or ~33 cells on a nominal 30x30 m grid; mean slope 34.45 deg)."
   },
   "scarp_signed_projections_and_distributions": {
     "descending_Track48": {
@@ -69,6 +73,18 @@
       "descending_Track48": -0.27565364809962006,
       "ascending_Track12": -0.36581766941621163
     },
+    "steep_scarp_detection_limits_mm_yr": {
+      "descending_Track48": {
+        "R_steep": 0.27565364809962006,
+        "raw_null_sigma_2.66mm": 587.4310066866233,
+        "detrended_null_sigma_1.10mm": 242.92259675010737
+      },
+      "ascending_Track12": {
+        "R_steep": 0.36581766941621163,
+        "raw_null_sigma_3.08mm": 512.5367517080654,
+        "detrended_null_sigma_2.47mm": 411.02784958406545
+      }
+    },
     "sign_cancellation_note": "Descending Track 48 exhibits sign-cancelling projections across the full box (38.8% positive, 61.2% negative; mean P = -0.034, but mean |R| = 0.309) because the flat upper bench curves toward the sensor. Filtering to the steep scarp (slope >= 25 deg) resolves this ambiguity: mean P_desc becomes consistently negative (-0.2757) and P_asc remains negative (-0.3658), providing well-posed geometric sensitivity."
   },
   "sensitivity_threshold_analysis": {
@@ -77,6 +93,11 @@
         "Descending_Observable_pct": 78.0114722753346,
         "Ascending_Observable_pct": 89.10133843212236,
         "Combined_Observable_pct": 95.02868068833652
+      },
+      "steep_scarp": {
+        "Descending_Observable_pct": 81.27659574468085,
+        "Ascending_Observable_pct": 96.59574468085106,
+        "Combined_Observable_pct": 100.0
       },
       "entire_10km_aoi": {
         "Descending_Observable_pct": 55.063657407407405,
@@ -90,6 +111,11 @@
         "Ascending_Observable_pct": 76.2906309751434,
         "Combined_Observable_pct": 86.9980879541109
       },
+      "steep_scarp": {
+        "Descending_Observable_pct": 45.53191489361702,
+        "Ascending_Observable_pct": 77.02127659574468,
+        "Combined_Observable_pct": 93.61702127659575
+      },
       "entire_10km_aoi": {
         "Descending_Observable_pct": 44.78615520282187,
         "Ascending_Observable_pct": 45.457175925925924,
@@ -102,11 +128,28 @@
         "Ascending_Observable_pct": 35.37284894837477,
         "Combined_Observable_pct": 37.858508604206506
       },
+      "steep_scarp": {
+        "Descending_Observable_pct": 0.0,
+        "Ascending_Observable_pct": 6.808510638297872,
+        "Combined_Observable_pct": 6.808510638297872
+      },
       "entire_10km_aoi": {
         "Descending_Observable_pct": 24.312444885361554,
         "Ascending_Observable_pct": 29.508377425044092,
         "Combined_Observable_pct": 45.79475308641975
       }
+    }
+  },
+  "steep_scarp_detection_limits_mm_yr": {
+    "descending_Track48": {
+      "R_steep": 0.27565364809962006,
+      "raw_null_sigma_2.66mm": 587.4310066866233,
+      "detrended_null_sigma_1.10mm": 242.92259675010737
+    },
+    "ascending_Track12": {
+      "R_steep": 0.36581766941621163,
+      "raw_null_sigma_3.08mm": 512.5367517080654,
+      "detrended_null_sigma_2.47mm": 411.02784958406545
     }
   },
   "observability_class_percentages_at_R_0_3": {
@@ -230,9 +273,10 @@
   "joint_two_track_velocity_inversions": {
     "steep_scarp_single_inversion": {
       "sample_size_30m_dem_pixels": 235,
-      "approx_independent_80m_sar_pixels": 33.046875,
+      "approx_independent_80m_sar_pixels": 30.998300116208643,
       "steep_scarp_mean_slope_deg": 34.4474628563237,
-      "steep_scarp_mean_aspect_deg": 151.12291385339424,
+      "steep_scarp_mean_aspect_deg": 174.67372353355495,
+      "steep_scarp_mean_dispersion": 0.03376220410723063,
       "steep_scarp_mean_P_desc": -0.27565364809962006,
       "steep_scarp_mean_P_asc": -0.36581766941621163,
       "relative_to_ensemble_reference": {
@@ -276,6 +320,6 @@
         }
       }
     },
-    "scientific_conclusion": "The steep-scarp joint inversion is model-dependent. Under the conservative raw spatial noise model, zero motion is contained in the 95% confidence interval (Ensemble: [-651, +106] mm/yr; CTRL-01: [-626, +131] mm/yr). Under the ramp-removed (detrended) null model, an apparent signal appears at ~3.7-sigma (Ensemble: -390 +/- 105 mm/yr; CTRL-01: -327 +/- 105 mm/yr). This apparent signal is directed upslope (v < 0), which is physically implausible as gravitational slope creep and is consistent with residual atmospheric phase delays or reference-pixel drift across steep alpine relief, but two pilot pairs cannot resolve this. Single pilot pairs cannot detect slope creep below roughly 0.2 to 0.5 m/yr, and the two pilot pairs constrain slope-parallel creep only to within a few tenths of a metre per year."
+    "scientific_conclusion": "The steep-scarp joint inversion is model-dependent. Under the conservative raw spatial noise model, zero motion is contained in the 95% confidence interval (Ensemble: [-651, +106] mm/yr; CTRL-01: [-626, +131] mm/yr). Under the ramp-removed (detrended) null model, an apparent signal appears at ~3.1-3.7-sigma (Ensemble: -390 +/- 105 mm/yr; CTRL-01: -327 +/- 105 mm/yr). This apparent signal is directed upslope (v < 0), which is physically implausible as gravitational slope creep. The cause is undetermined: an apparent upslope offset appears across all three pilot pairs (including May 2023 dry season), which does not support purely random noise, but three samples are too few to conclude (same-signed offsets occur by chance ~25% of the time, and the September windows share dates). Candidate causes (residual stratified atmosphere across the 5200-5300 m ridge, reference-pixel network drift, phase unwrapping bias, or a null/estimator mismatch between pairwise point-patch spread and polygon-mean differential offsets) cannot be discriminated from two pilot pairs. Single pilot pairs cannot detect slope creep below roughly 0.2 to 0.6 m/yr, and the two pilot pairs constrain slope-parallel creep only to within a few tenths of a metre per year."
   }
 }

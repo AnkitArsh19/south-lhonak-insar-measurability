@@ -76,16 +76,16 @@
               <span class="stat-caption">Lake Area Evacuated in Outburst</span>
             </div>
             <div class="stat-card">
-              <span class="stat-number font-mono text-amber">87.0%</span>
-              <span class="stat-caption">Dual-Orbit Scarp Observability (R &ge; 0.3)</span>
+              <span class="stat-number font-mono text-amber">87% / 94%</span>
+              <span class="stat-caption">Dual-Orbit Observability (87% Box, 94% Steep Face)</span>
             </div>
             <div class="stat-card">
-              <span class="stat-number font-mono text-coral">~22 mm/yr</span>
-              <span class="stat-caption">True Pre-Event Moraine Creep Rate</span>
+              <span class="stat-number font-mono text-coral">&lt; 50 mm/yr</span>
+              <span class="stat-caption">Typical Alpine Moraine Creep Rate</span>
             </div>
             <div class="stat-card">
-              <span class="stat-number font-mono text-zinc">200–500 mm</span>
-              <span class="stat-caption">Single-Pair InSAR Noise Floor</span>
+              <span class="stat-number font-mono text-zinc">240–590 mm/yr</span>
+              <span class="stat-caption">Single-Pair Steep Scarp Noise Floor</span>
             </div>
           </div>
         </div>
@@ -188,14 +188,14 @@
         <div class="info-sidebar">
           <div class="info-card">
             <div class="card-chip font-mono text-amber">ASPECT ALIGNMENT</div>
-            <h3 class="card-heading">Scarp Faces South-Southeast</h3>
+            <h3 class="card-heading">Scarp Faces South Toward Lake</h3>
             <p class="card-text">
-              The failure scarp has a circular mean aspect of <strong>151.1° (SSE)</strong>, facing within <strong>26.2°</strong> of the nearest southern lake shore.
+              The full analysis box exhibits a circular mean aspect of <strong>151.1° (SSE)</strong> (within 26.2° of shore), shifting directly South to <strong>174.7° (S)</strong> on the steep failure face (within <strong>2.6°</strong> of the nearest southern lake shore).
             </p>
             <div class="card-metric-block font-mono">
-              <div class="sub-metric"><span>Mean Scarp Slope:</span> <strong>32.8°</strong></div>
+              <div class="sub-metric"><span>Mean Steep Slope:</span> <strong>34.5°</strong></div>
               <div class="sub-metric"><span>Lake Shore Bearing:</span> <strong>177.3°</strong></div>
-              <div class="sub-metric"><span>Deviation:</span> <strong class="text-cyan">26.2°</strong></div>
+              <div class="sub-metric"><span>Steep Aspect Deviation:</span> <strong class="text-cyan">2.6°</strong></div>
             </div>
           </div>
 
@@ -272,8 +272,8 @@
             <div class="progress-bar-wrap">
               <div class="progress-fill fill-combined" id="bar-comb" style="width: 87.0%;"></div>
             </div>
-            <div class="col-stat font-mono text-cyan" id="stat-comb">87.0% OBSERVABLE</div>
-            <p class="col-desc">Dual-orbit synergy eliminates 87% of single-track blindness across the scarp.</p>
+            <div class="col-stat font-mono text-cyan" id="stat-comb">87.0% (93.6% STEEP FACE)</div>
+            <p class="col-desc">Dual-orbit synergy achieves 87.0% observability across the full box and 93.6% on the steep active face.</p>
           </div>
         </div>
       </div>
@@ -300,38 +300,38 @@
       <div class="paradox-comparator tech-frame">
         <div class="gauge-card">
           <div class="gauge-header">
-            <span class="badge font-mono text-emerald">TRUE GROUND CREEP</span>
-            <span class="citation font-mono">MOHANTY ET AL. (2026, SCI. REP.)</span>
+            <span class="badge font-mono text-emerald">TYPICAL MORAINE CREEP</span>
+            <span class="citation font-mono">CRYOSPHERIC LITERATURE (&lt; 50 MM/YR)</span>
           </div>
           <div class="visual-bar-container">
             <div class="bar-actual-signal" style="width: 7.3%;">
-              <span class="bar-val font-mono">22 mm/yr</span>
+              <span class="bar-val font-mono">&lt; 50 mm/yr</span>
             </div>
           </div>
           <p class="gauge-explanation">
-            Measured by stacking <strong>64 Sentinel-1 scenes across 4 years (2017–2021)</strong> using multi-temporal PS-InSAR. Slow ice-core permafrost degradation.
+            Alpine moraine and permafrost creep operates at centimetres per year, requiring multi-year time-series stacking (e.g. SBAS/PS-InSAR) to resolve.
           </p>
         </div>
 
         <div class="gauge-card">
           <div class="gauge-header">
-            <span class="badge font-mono text-coral">SINGLE 12-DAY PAIR NOISE FLOOR</span>
-            <span class="citation font-mono">THIS STUDY (119 BEDROCK PATCHES)</span>
+            <span class="badge font-mono text-coral">STEEP-FACE SINGLE-PAIR NOISE FLOOR</span>
+            <span class="citation font-mono">THIS STUDY (116–121 BEDROCK PATCHES, R=0.28–0.37)</span>
           </div>
           <div class="visual-bar-container">
             <div class="bar-noise-signal" style="width: 100%;">
-              <span class="bar-val font-mono">200 — 500 mm/yr (Noise Floor)</span>
+              <span class="bar-val font-mono">240 — 590 mm/yr (Noise Floor)</span>
             </div>
           </div>
           <p class="gauge-explanation">
-            Atmospheric turbulence creates a 2&sigma; noise floor of 2.2–6.2 mm. On a 12-day baseline, this blinds the sensor to any movement smaller than 0.2–0.5 meters/year.
+            Atmospheric phase delay creates a 2&sigma; noise floor of 2.2–6.2 mm. On a 12-day baseline over the steep face, this limits single-pair detection to movements larger than roughly 0.24–0.59 m/yr.
           </p>
         </div>
 
         <div class="paradox-callout font-mono">
           <div class="callout-icon">!</div>
           <div class="callout-text">
-            <strong>THE PHYSICAL INFERENCE:</strong> Because 22 mm/yr &ll; 200–500 mm/yr, the true precursory creep is buried by an order of magnitude beneath single-pair noise. Pre-event pilot pairs yield [-651, +106] mm/yr (95% CI), statistically containing ZERO. Any claim of single-pair warning was an atmospheric illusion.
+            <strong>THE PHYSICAL INFERENCE:</strong> The joint two-track velocity inversion is model-dependent: zero motion is contained within the conservative raw spatial null 95% CI ([-651, +106] mm/yr), while the detrended null yields an apparent upslope signal at 3.7&sigma; ([-595, -185] mm/yr). Because candidate causes cannot be discriminated from two pilot pairs and the single-pair noise floor (240–590 mm/yr) exceeds slow creep by an order of magnitude, single pilot pairs cannot detect precursory creep.
           </div>
         </div>
       </div>
@@ -351,14 +351,14 @@
             </thead>
             <tbody>
               <tr>
-                <td>Bedrock Ensemble (119)</td>
+                <td>Bedrock Ensemble (116–121)</td>
                 <td>Raw Spatial Null</td>
                 <td class="text-cyan">-273 &plusmn; 193 mm/yr</td>
                 <td>[-651, +106] mm/yr</td>
                 <td class="text-emerald">YES (Creep &lt; 0.11 m/yr)</td>
               </tr>
               <tr>
-                <td>Bedrock Ensemble (119)</td>
+                <td>Bedrock Ensemble (116–121)</td>
                 <td>Planar Detrended</td>
                 <td class="text-coral">-390 &plusmn; 105 mm/yr</td>
                 <td>[-595, -185] mm/yr</td>
@@ -374,7 +374,7 @@
             </tbody>
           </table>
           <p class="table-note font-mono">
-            * Under ramp removal, apparent velocity points UPSLOPE (v &lt; 0), physically ruling out gravitational creep and proving atmospheric contamination.
+            * The result is model-dependent: zero motion is contained within the raw spatial null, while the detrended null yields an apparent signal directed upslope (v &lt; 0), characteristic of residual stratified atmosphere or phase unwrapping biases.
           </p>
         </div>
       </div>
